@@ -9,7 +9,7 @@
 	require_once('./config.php'); 
 	require_once('./operation.php'); 
 
-	$db = mysql_connect("{$DB_HOST}:{$DB_PORT}", $DB_USER, $DB_PASSWORD);
+	$db = @mysql_connect($DB_HOST, $DB_USER, $DB_PASSWORD, true);
 	if (!$db)
 	{
 		die('Could not connect: ' . mysql_error());

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Database Operation Sample</title>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h2>Database Operation Sample</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-md-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">管理面板</div>
+
+            <div class="panel-body">
+            	<button type="button" class="btn btn-primary btn-block" onclick="init_db();">初始化数据库</button>
+            	<button type="button" class="btn btn-danger btn-block" onclick="clean_db();">清空数据库</button>
+            	</br>
+            	<div>
+					<div class="input-group">
+						<input type="text" class="form-control" id="enum_object" placeholder="对象名称">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">添加对象到<span class="caret"></span></button>
+							<ul class="dropdown-menu">
+								<li><a href="###" onclick="add_enum(0);">Status</a></li>
+								<li><a href="###" onclick="add_enum(1);">Bank</a></li>
+								<li><a href="###" onclick="add_enum(2);">Agent</a></li>
+								<li><a href="###" onclick="add_enum(3);">Salesperson</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">状态</div>
+
+            <div class="panel-body">
+            	<div class="alert alert-info" id="status">准备中</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="panel panel-primary">
+            <div class="panel-heading">工作区</div>
+
+            <div class="panel-body">
+            	<form class="form-inline" role="form">
+					<div class="col-md-4">
+            	    	<input type="text" class="form-control" placeholder="协议号" id="enum_sn">
+					</div>
+					</br>
+					</br>
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="客户姓名1" id="enum_name1">
+					</div>
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="客户姓名2" id="enum_name2">
+					</div>
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="客户姓名3" id="enum_name3">
+					</div>
+					</br>
+					</br>
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="电话号码" id="enum_mobile">
+					</div>
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="身份证号" id="enum_personalid">
+					</div>
+					</br>
+					</br>
+					<div class="col-md-4">
+						<select class="form-control" id="enum_status">
+							<option value="" disabled selected>状态</option>
+						</select>
+					</div>
+					</br>
+					</br>
+					<div class="col-md-4">
+						<select class="form-control" id="enum_bank">
+							<option value="" disabled selected>银行</option>
+						</select>
+					</div>
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="卡号"  id="enum_cardnumber">
+					</div>
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="收据号码"  id="enum_receipt">
+					</div>
+					</br>
+					</br>
+					<div class="col-md-4">
+						<select class="form-control" id="enum_agent">
+							<option value="" disabled selected>代理公司</option>
+						</select>
+					</div>
+					</br>
+					</br>
+					<div class="col-md-4">
+						<select class="form-control" id="enum_salesperson1">
+							<option value="" disabled selected>销售员1</option>
+						</select>
+					</div>
+					<div class="col-md-4">
+						<select class="form-control" id="enum_salesperson2">
+							<option value="" disabled selected>销售员2</option>
+						</select>
+					</div>
+					<div class="col-md-4">
+						<select class="form-control" id="enum_salesperson3">
+							<option value="" disabled selected>销售员3</option>
+						</select>
+					</div>
+					</br>
+					</br>
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="选购房源" id="enum_roomnumber">
+					</div>
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="来源区域" id="enum_location">
+					</div>
+					</br>
+					</br>
+				</form>
+				<div class="col-md-4">
+					<button class="btn btn-primary btn-block" onclick="add_to_database();">添加</button>
+				</div>
+				<div class="col-md-4">
+					<button class="btn btn-primary btn-block" onclick="show_all();">全部显示</button>
+				</div>
+				<div class="col-md-4">
+					<button class="btn btn-warning btn-block" onclick="clean_form();">清空表单</button>
+				</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-10 col-md-offset-1">
+        <table class="table" id="result_table">
+            <thead>
+                <tr>
+                    <th>套数</th>
+                    <th>日期</th>
+                    <th>协议号</th>
+                    <th>客户姓名1</th>
+                    <th>客户姓名2</th>
+                    <th>客户姓名3</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./sample.js"></script>
+</body>
+</html>

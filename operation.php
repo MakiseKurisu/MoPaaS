@@ -73,7 +73,20 @@
 
 	function init_data()
 	{
+		// Clean data
+		$sql = "DROP DATABASE {$GLOBALS['DB_NAME']}";
+
+		if (!$GLOBALS['database']->query($sql))
+		{
+			$return['Code'] = 0;
+			$return['Reason'] = '无法删除数据库: ' . $GLOBALS['database']->error()[2];
+			echo(json_encode($return));
+			return;
+		}
+
+		// Create database and connection
 		create_database();
+		$GLOBALS['database'] = new_medoo();
 
 		$sql = "CREATE TABLE {$GLOBALS['DB_TABLE_NAME']}
 		(
@@ -187,16 +200,6 @@
 
 	function clean_data()
 	{
-		$sql = "DROP DATABASE {$GLOBALS['DB_NAME']}";
-
-		if (!$GLOBALS['database']->query($sql))
-		{
-			$return['Code'] = 0;
-			$return['Reason'] = '无法删除数据库: ' . $GLOBALS['database']->error()[2];
-			echo(json_encode($return));
-			return;
-		}
-
 		init_data();
 	}
 ?>

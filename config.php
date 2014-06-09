@@ -52,4 +52,18 @@
 		// Close the connection
 		mysql_close($database);
 	}
+
+	function new_medoo()
+	{
+		return new medoo([
+			'database_type' => 'mysql',
+			'server' => $GLOBALS['DB_HOST'],
+			'port' => $GLOBALS['DB_PORT'],
+			'username' => $GLOBALS['DB_USER'],
+			'password' => $GLOBALS['DB_PASSWORD'],
+			'database_name' => $GLOBALS['DB_NAME'],
+		 
+			'charset' => 'utf8',
+		]);
+	}
 ?>

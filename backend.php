@@ -11,6 +11,18 @@
 	require_once('./operation.php');
 	require_once('./lib/medoo.min.php');
 
+	$database = new medoo([
+		'database_type' => 'mysql',
+		'server' => $GLOBALS['DB_HOST'],
+		'port' => $GLOBALS['DB_PORT'],
+		'username' => $GLOBALS['DB_USER'],
+		'password' => $GLOBALS['DB_PASSWORD'],
+		'database_name' => $GLOBALS['DB_NAME'],
+	 
+		'charset' => 'utf8',
+	]);
+
+	/* Legacy code */
 	$db = @mysql_connect("{$DB_HOST}:{$DB_PORT}", $DB_USER, $DB_PASSWORD, true);
 	if (!$db)
 	{
@@ -18,6 +30,9 @@
 	}
 	mysql_query("set character set 'utf8'");
 	mysql_query("set names 'utf8'");
+
+	mysql_select_db($GLOBALS['DB_NAME'], $db);
+	/* Legacy code */
 
 	switch ($_REQUEST['command'])
 	{
@@ -41,12 +56,9 @@
 			clean_data();
 			break;
 		}
-		default:
-		{
-			echo('nothing');
-			break;
-		}
 	}
 
+	/* Legacy code */
 	mysql_close($db);
+	/* Legacy code */
 ?>

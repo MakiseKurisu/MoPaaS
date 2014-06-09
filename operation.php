@@ -1,14 +1,6 @@
 <?php
 	function add_data()
 	{
-		if (!mysql_select_db($GLOBALS['DB_NAME'], $GLOBALS['db']))
-		{
-			$return['Code'] = 0;
-			$return['Reason'] = '无法打开数据库,可能尚未初始化';
-			echo(json_encode($return));
-			return;
-		}
-
 		$json = json_decode(file_get_contents("php://input"));
 		mysql_query("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'", $GLOBALS['db']);
 
@@ -57,14 +49,6 @@
 
 	function search_data()
 	{
-		if (!mysql_select_db($GLOBALS['DB_NAME'], $GLOBALS['db']))
-		{
-			$return['Code'] = 0;
-			$return['Reason'] = '无法打开数据库,可能尚未初始化';
-			echo(json_encode($return));
-			return;
-		}
-
 		$json = json_decode(file_get_contents("php://input"));
 
 		$sql = 'SELECT * FROM ' . $json->{'table'};
@@ -89,8 +73,7 @@
 
 	function init_data()
 	{
-		mysql_select_db($GLOBALS['DB_NAME'], $GLOBALS['db']);
-		$sql = 'CREATE TABLE ' . $GLOBALS['DB_TABLE_NAME'] . '
+		$sql = "CREATE TABLE {$GLOBALS['DB_TABLE_NAME']}
 		(
 		ID int NOT NULL AUTO_INCREMENT, 
 		PRIMARY KEY(ID),
@@ -114,17 +97,14 @@
 		Comment varchar(128)
 		)
 		CHARACTER SET utf8
-		COLLATE utf8_general_ci';
+		COLLATE utf8_general_ci";
 		
-		if (!mysql_query($sql,$GLOBALS['db']))
+		if (!$GLOBALS['database']->query($sql))
 		{
-			if (mysql_errno() != 1050)
-			{
-				$return['Code'] = 0;
-				$return['Reason'] = mysql_errno() . ' 无法创建主表';
-				echo(json_encode($return));
-				return;
-			}
+			$return['Code'] = 0;
+			$return['Reason'] = '无法创建主表: ' . $GLOBALS['database']->error()[2];
+			echo(json_encode($return));
+			return;
 		}
 
 		// Status table
@@ -137,15 +117,12 @@
 		CHARACTER SET utf8
 		COLLATE utf8_general_ci';
 		
-		if (!mysql_query($sql,$GLOBALS['db']))
+		if (!$GLOBALS['database']->query($sql))
 		{
-			if (mysql_errno() != 1050)
-			{
-				$return['Code'] = 0;
-				$return['Reason'] = mysql_errno() . ' 无法创建Status表';
-				echo(json_encode($return));
-				return;
-			}
+			$return['Code'] = 0;
+			$return['Reason'] = '无法创建Status表: ' . $GLOBALS['database']->error()[2];
+			echo(json_encode($return));
+			return;
 		}
 
 		// Bank table
@@ -158,15 +135,12 @@
 		CHARACTER SET utf8
 		COLLATE utf8_general_ci';
 		
-		if (!mysql_query($sql,$GLOBALS['db']))
+		if (!$GLOBALS['database']->query($sql))
 		{
-			if (mysql_errno() != 1050)
-			{
-				$return['Code'] = 0;
-				$return['Reason'] = mysql_errno() . ' 无法创建Bank表';
-				echo(json_encode($return));
-				return;
-			}
+			$return['Code'] = 0;
+			$return['Reason'] = '无法创建Bank表: ' . $GLOBALS['database']->error()[2];
+			echo(json_encode($return));
+			return;
 		}
 
 		// Agent table
@@ -179,15 +153,12 @@
 		CHARACTER SET utf8
 		COLLATE utf8_general_ci';
 		
-		if (!mysql_query($sql,$GLOBALS['db']))
+		if (!$GLOBALS['database']->query($sql))
 		{
-			if (mysql_errno() != 1050)
-			{
-				$return['Code'] = 0;
-				$return['Reason'] = mysql_errno() . ' 无法创建Agent表';
-				echo(json_encode($return));
-				return;
-			}
+			$return['Code'] = 0;
+			$return['Reason'] = '无法创建Agent表: ' . $GLOBALS['database']->error()[2];
+			echo(json_encode($return));
+			return;
 		}
 
 		// Salesperson table
@@ -200,15 +171,12 @@
 		CHARACTER SET utf8
 		COLLATE utf8_general_ci';
 		
-		if (!mysql_query($sql,$GLOBALS['db']))
+		if (!$GLOBALS['database']->query($sql))
 		{
-			if (mysql_errno() != 1050)
-			{
-				$return['Code'] = 0;
-				$return['Reason'] = mysql_errno() . ' 无法创建Salesperson表';
-				echo(json_encode($return));
-				return;
-			}
+			$return['Code'] = 0;
+			$return['Reason'] = '无法创建Salesperson表: ' . $GLOBALS['database']->error()[2];
+			echo(json_encode($return));
+			return;
 		}
 
 		$return['Code'] = 1;

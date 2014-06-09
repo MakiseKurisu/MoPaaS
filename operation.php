@@ -89,18 +89,6 @@
 
 	function init_data()
 	{
-		// Main table
-		if (!mysql_query('CREATE DATABASE ' . $GLOBALS['DB_NAME'], $GLOBALS['db']))
-		{
-			if (mysql_errno() != 1007)
-			{
-				$return['Code'] = 0;
-				$return['Reason'] = mysql_errno() . ' 无法创建数据库';
-				echo(json_encode($return));
-				return;
-			}
-		}
-
 		mysql_select_db($GLOBALS['DB_NAME'], $GLOBALS['db']);
 		$sql = 'CREATE TABLE ' . $GLOBALS['DB_TABLE_NAME'] . '
 		(

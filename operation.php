@@ -73,6 +73,8 @@
 
 	function init_data()
 	{
+		create_database();
+
 		$sql = "CREATE TABLE {$GLOBALS['DB_TABLE_NAME']}
 		(
 		ID int NOT NULL AUTO_INCREMENT, 
@@ -185,19 +187,16 @@
 
 	function clean_data()
 	{
-		if (!mysql_query('DROP DATABASE ' . $GLOBALS['DB_NAME'], $GLOBALS['db']))
+		$sql = "DROP DATABASE {$GLOBALS['DB_NAME']}";
+
+		if (!$GLOBALS['database']->query($sql))
 		{
-			if (mysql_errno() != 1008)
-			{
-				$return['Code'] = 0;
-				$return['Reason'] = mysql_errno() . ' 无法删除数据库';
-				echo(json_encode($return));
-				return;
-			}
+			$return['Code'] = 0;
+			$return['Reason'] = '无法删除数据库: ' . $GLOBALS['database']->error()[2];
+			echo(json_encode($return));
+			return;
 		}
 
-		$return['Code'] = 1;
-		echo(json_encode($return));
-		return;
+		init_data();
 	}
 ?>

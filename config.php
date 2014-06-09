@@ -6,9 +6,6 @@
 		$DB_USER = 'root';
 		$DB_PASSWORD = 'password';
 		$DB_NAME = 'SampleDB';
-
-		// On local machine we need to create database by ourself
-		create_database();
 	}
 	else
 	{
@@ -21,10 +18,13 @@
 
 	$DB_TABLE_NAME = 'SampleTable';
 
+	// Just to make sure we have it
+	create_database();
+
 	function create_database()
 	{
 		// Connect to MySQL server
-		$database = @mysql_connect(
+		$database = mysql_connect(
 			"{$GLOBALS['DB_HOST']}:{$GLOBALS['DB_PORT']}",
 			$GLOBALS['DB_USER'],
 			$GLOBALS['DB_PASSWORD'],

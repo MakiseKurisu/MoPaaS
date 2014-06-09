@@ -6,8 +6,8 @@
 	header("Pragma: no-cache");
 	header("Content-Type: text/html;charset=utf-8"); 
 
-	require_once('./config.php'); 
-	require_once('./operation.php'); 
+	require_once('./config.php');
+	require_once('./operation.php');
 
 	$db = @mysql_connect($DB_HOST, $DB_USER, $DB_PASSWORD, true);
 	if (!$db)

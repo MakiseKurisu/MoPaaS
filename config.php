@@ -24,33 +24,32 @@
 	function create_database()
 	{
 		// Connect to MySQL server
-		$database = mysql_connect(
+		$database = mysqli_connect(
 			"{$GLOBALS['DB_HOST']}:{$GLOBALS['DB_PORT']}",
 			$GLOBALS['DB_USER'],
-			$GLOBALS['DB_PASSWORD'],
-			true);
-		if (!$database)
+			$GLOBALS['DB_PASSWORD']);
+		if (mysqli_connect_errno())
 		{
 			$return['Code'] = 0;
-			$return['Reason'] = '无法连接数据库: ' . mysql_error();
+			$return['Reason'] = '无法连接数据库: ' . mysqli_connect_error();
 			die(json_encode($return));
 		}
-		mysql_query("set character set 'utf8'");
-		mysql_query("set names 'utf8'");
+		mysqli_query($database, "set character set 'utf8'");
+		mysqli_query($database, "set names 'utf8'");
 
 		// Create the database
-		if (!mysql_query("CREATE DATABASE {$GLOBALS['DB_NAME']}", $database))
+		if (!mysqli_query($database, "CREATE DATABASE {$GLOBALS['DB_NAME']}"))
 		{
-			if (mysql_errno() != 1007)
+			if (mysqli_errno($database) != 1007)
 			{
 				$return['Code'] = 0;
-				$return['Reason'] = '无法创建数据库: ' . mysql_error();
+				$return['Reason'] = '无法创建数据库: ' . mysqli_error($database);
 				die(json_encode($return));
 			}
 		}
 
 		// Close the connection
-		mysql_close($database);
+		mysqli_close($database);
 	}
 
 	function new_medoo()

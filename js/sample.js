@@ -251,8 +251,7 @@ function show_all()
 
 function add_record(i)
 {
-	console.log('Enter show_all');
-	console.log(table);
+	console.log('Enter add_record');
 
 	var row = table.insertRow(-1);
 	row.addEventListener("click",
@@ -310,7 +309,7 @@ function add_to_database()
 	var date = new Date();
 	record.data.Date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 
-	if (enum_sn.value == null)
+	if (enum_sn.value == '')
 	{
 		status.className = 'alert alert-danger';
 		status.innerText = '协议号不能为空';
@@ -322,7 +321,7 @@ function add_to_database()
 	record.data.Name2 = enum_name2.value;
 	record.data.Name3 = enum_name3.value;
 
-	if (enum_mobile.value == null)
+	if (enum_mobile.value == '')
 	{
 		status.className = 'alert alert-danger';
 		status.innerText = '电话号码不能为空';
@@ -330,7 +329,7 @@ function add_to_database()
 	}
 	record.data.Mobile = enum_mobile.value;
 
-	if (enum_personalid.value == null)
+	if (enum_personalid.value == '')
 	{
 		status.className = 'alert alert-danger';
 		status.innerText = '身份证号不能为空';
@@ -341,7 +340,7 @@ function add_to_database()
 	record.data.Status = enum_status.selectedIndex;
 	record.data.Bank = enum_bank.selectedIndex;
 
-	if (enum_cardnumber.value == null)
+	if (enum_cardnumber.value == '')
 	{
 		status.className = 'alert alert-danger';
 		status.innerText = '卡号不能为空';
@@ -349,7 +348,7 @@ function add_to_database()
 	}
 	record.data.CardNumber = enum_cardnumber.value;
 
-	if (enum_receipt.value == null)
+	if (enum_receipt.value == '')
 	{
 		status.className = 'alert alert-danger';
 		status.innerText = '收据号码不能为空';
@@ -362,7 +361,7 @@ function add_to_database()
 	record.data.Salesperson2 = enum_salesperson2.selectedIndex;
 	record.data.Salesperson3 = enum_salesperson3.selectedIndex;
 
-	if (enum_roomnumber.value == null)
+	if (enum_roomnumber.value == '')
 	{
 		status.className = 'alert alert-danger';
 		status.innerText = '选购房源不能为空';
@@ -370,7 +369,7 @@ function add_to_database()
 	}
 	record.data.RoomNumber = enum_roomnumber.value;
 
-	if (enum_location.value == null)
+	if (enum_location.value == '')
 	{
 		status.className = 'alert alert-danger';
 		status.innerText = '来源区域不能为空';

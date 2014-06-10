@@ -100,23 +100,36 @@ function init_db()
 	xmlhttp = create_xmlhttp();
 	xmlhttp.onreadystatechange = function()
 	{
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-		{  
-			console.log(xmlhttp.responseText);
-			var json = JSON.parse(xmlhttp.responseText);
-			console.log(json);
-            if (json.Code == 0)
-            {
-            	status.className = 'alert alert-danger';
-				status.innerText = json.Reason;
-            }
-            else
-            {
-            	clean_form();
-				show_all();
-            	status.className = 'alert alert-success';
-				status.innerText = '数据库已成功初始化';
-            }
+		if (xmlhttp.readyState == 4)
+		{
+			switch (xmlhttp.status)
+			{
+				case 200:
+				{
+					console.log(xmlhttp.responseText);
+					var json = JSON.parse(xmlhttp.responseText);
+					console.log(json);
+		            if (json.Code == 0)
+		            {
+		            	status.className = 'alert alert-danger';
+						status.innerText = json.Reason;
+		            }
+		            else
+		            {
+		            	clean_form();
+						show_all();
+		            	status.className = 'alert alert-success';
+						status.innerText = '数据库已成功初始化';
+		            }
+		            break;
+		        }
+		        default:
+		        {
+					status.className = 'alert alert-danger';
+					status.innerText = '连接失败';
+					break;
+				}
+	        }
         }
 	};
 	xmlhttp.open('POST','./backend.php?command=init',true);  
@@ -142,26 +155,37 @@ function add_enum(i)
 	xmlhttp = create_xmlhttp();
 	xmlhttp.onreadystatechange = function()
 	{
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-		{  
-			console.log(xmlhttp.responseText);
-			var json = JSON.parse(xmlhttp.responseText);
-			console.log(json);
-            if (json.Code == 0)
-            {
-            	status.className = 'alert alert-danger';
-				status.innerText = json.Reason;
-            }
-            else
-            {
-            	EnumList[i].List = search_enum(i);
-            	refresh_option();
-            	status.className = 'alert alert-success';
-				status.innerText = '已成功添加对象';
-				enum_object.value = "";
-
-
-            }
+		if (xmlhttp.readyState == 4)
+		{
+			switch (xmlhttp.status)
+			{
+				case 200:
+				{
+					console.log(xmlhttp.responseText);
+					var json = JSON.parse(xmlhttp.responseText);
+					console.log(json);
+		            if (json.Code == 0)
+		            {
+		            	status.className = 'alert alert-danger';
+						status.innerText = json.Reason;
+		            }
+		            else
+		            {
+		            	EnumList[i].List = search_enum(i);
+		            	refresh_option();
+		            	status.className = 'alert alert-success';
+						status.innerText = '已成功添加对象';
+						enum_object.value = "";
+		            }
+		            break;
+		        }
+		        default:
+		        {
+					status.className = 'alert alert-danger';
+					status.innerText = '连接失败';
+					break;
+				}
+			}
         }
 	};
 	xmlhttp.open('POST','./backend.php?command=add',true);  
@@ -185,23 +209,37 @@ function search_enum(i)
 	var record = {table:EnumList[i].Name};
     xmlhttp.send(JSON.stringify(record));
 
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-	{  
-		console.log(xmlhttp.responseText);
-		var json = JSON.parse(xmlhttp.responseText);
-		console.log(json);
-        if (json.Code == 0)
-        {
-        	status.className = 'alert alert-danger';
-			status.innerText = json.Reason;
-			return null;
-        }
-        else
-        {
-        	status.className = 'alert alert-success';
-			status.innerText = '已成功检索对象';
-			return json.Result;
-        }
+    if (xmlhttp.readyState == 4)
+	{
+		switch (xmlhttp.status)
+		{
+			case 200:
+			{
+				console.log(xmlhttp.responseText);
+				var json = JSON.parse(xmlhttp.responseText);
+				console.log(json);
+		        if (json.Code == 0)
+		        {
+		        	status.className = 'alert alert-danger';
+					status.innerText = json.Reason;
+					return null;
+		        }
+		        else
+		        {
+		        	status.className = 'alert alert-success';
+					status.innerText = '已成功检索对象';
+					return json.Result;
+		        }
+		        break;
+		    }
+		    default:
+		    {
+				status.className = 'alert alert-danger';
+				status.innerText = '连接失败';
+				return null;
+				break;
+			}
+		}
     }
 }
 
@@ -223,29 +261,42 @@ function show_all()
 	var record = {table:'sampletable'};
     xmlhttp.send(JSON.stringify(record));
 
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-	{  
-		console.log(xmlhttp.responseText);
-		var json = JSON.parse(xmlhttp.responseText);
-		console.log(json);
-        if (json.Code == 0)
-        {
-        	status.className = 'alert alert-danger';
-			status.innerText = json.Reason;
-        }
-        else
-        {
-        	status.className = 'alert alert-success';
-			status.innerText = '已成功检索对象';
-			ResultList = json.Result;
-			if ((typeof(ResultList) != 'undefined') && ResultList)
+    if (xmlhttp.readyState == 4)
+	{
+		switch (xmlhttp.status)
+		{
+			case 200:
 			{
-				for (var i = 0; i < ResultList.length; i++)
-				{
-					add_record(i);
-				}
+				console.log(xmlhttp.responseText);
+				var json = JSON.parse(xmlhttp.responseText);
+				console.log(json);
+		        if (json.Code == 0)
+		        {
+		        	status.className = 'alert alert-danger';
+					status.innerText = json.Reason;
+		        }
+		        else
+		        {
+		        	status.className = 'alert alert-success';
+					status.innerText = '已成功检索对象';
+					ResultList = json.Result;
+					if ((typeof(ResultList) != 'undefined') && ResultList)
+					{
+						for (var i = 0; i < ResultList.length; i++)
+						{
+							add_record(i);
+						}
+					}
+		        }
+		        break;
+		    }
+		    default:
+		    {
+				status.className = 'alert alert-danger';
+				status.innerText = '连接失败';
+				break;
 			}
-        }
+		}
     }
 }
 
@@ -286,21 +337,35 @@ function add_to_database()
 	xmlhttp = create_xmlhttp();
 	xmlhttp.onreadystatechange = function()
 	{
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-		{  
-			console.log(xmlhttp.responseText);
-			var json = JSON.parse(xmlhttp.responseText);
-			console.log(json);
-            if (json.Code == 0)
-            {
-            	status.className = 'alert alert-danger';
-				status.innerText = json.Reason;
-            }
-            else
-            {
-            	status.className = 'alert alert-success';
-				status.innerText = '已成功添加对象';
-            }
+		if (xmlhttp.readyState == 4)
+		{
+			switch (xmlhttp.status)
+			{
+				case 200:
+				{
+					console.log(xmlhttp.responseText);
+					var json = JSON.parse(xmlhttp.responseText);
+					console.log(json);
+		            if (json.Code == 0)
+		            {
+		            	status.className = 'alert alert-danger';
+						status.innerText = json.Reason;
+		            }
+		            else
+		            {
+		            	status.className = 'alert alert-success';
+						status.innerText = '已成功添加对象';
+		            }
+		            break;
+				}
+				default:
+				{
+					status.className = 'alert alert-danger';
+					status.innerText = '连接失败';
+					break;
+				}
+			}
+			
         }
 	};
 	xmlhttp.open('POST','./backend.php?command=add',true);  
@@ -383,31 +448,31 @@ function add_to_database()
 
 function clean_form()
 {
-	enum_sn.value = null;
+	enum_sn.value = '';
 
-	enum_name1.value = null;
-	enum_name2.value = null;
-	enum_name3.value = null;
+	enum_name1.value = '';
+	enum_name2.value = '';
+	enum_name3.value = '';
 
-	enum_mobile.value = null;
+	enum_mobile.value = '';
 
-	enum_personalid.value = null;
+	enum_personalid.value = '';
 
 	enum_status.selectedIndex = 0;
 	enum_bank.selectedIndex = 0;
 
-	enum_cardnumber.value = null;
+	enum_cardnumber.value = '';
 
-	enum_receipt.value = null
+	enum_receipt.value = ''
 
 	enum_agent.selectedIndex = 0;
 	enum_salesperson1.selectedIndex = 0;
 	enum_salesperson2.selectedIndex = 0;
 	enum_salesperson3.selectedIndex = 0;
 
-	enum_roomnumber.value = null;
+	enum_roomnumber.value = '';
 
-	enum_location.value = null;
+	enum_location.value = '';
 }
 
 function show_full_result(i)

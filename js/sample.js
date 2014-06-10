@@ -112,46 +112,14 @@ function init_db()
             }
             else
             {
+            	clean_form();
+				show_all();
             	status.className = 'alert alert-success';
-				status.innerText = '数据库已成功建立';
+				status.innerText = '数据库已成功初始化';
             }
         }
 	};
 	xmlhttp.open('POST','./backend.php?command=init',true);  
-    xmlhttp.send();
-}
-
-function clean_db()
-{
-	console.log('Enter clean_db');
-
-	var status = document.getElementById('status');
-	status.className = 'alert alert-info';
-	status.innerText = '正在发送请求...';
-
-	xmlhttp = create_xmlhttp();
-	xmlhttp.onreadystatechange = function()
-	{
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-		{  
-			console.log(xmlhttp.responseText);
-			var json = JSON.parse(xmlhttp.responseText);
-			console.log(json);
-            if (json.Code == 0)
-            {
-            	status.className = 'alert alert-danger';
-				status.innerText = json.Reason;
-            }
-            else
-            {
-            	clean_form();
-				show_all();
-            	status.className = 'alert alert-success';
-				status.innerText = '数据库已清空';
-            }
-        }
-	};
-	xmlhttp.open('POST','./backend.php?command=clean',true);  
     xmlhttp.send();
 }
 

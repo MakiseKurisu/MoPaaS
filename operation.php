@@ -197,9 +197,4 @@
 		$return['Code'] = 1;
 		echo(json_encode($return));
 	}
-
-	function clean_data()
-	{
-		init_data();
-	}
 ?>

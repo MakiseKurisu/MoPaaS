@@ -42,11 +42,6 @@
 			init_data();
 			break;
 		}
-		case 'clean':
-		{
-			clean_data();
-			break;
-		}
 	}
 
 	/* Legacy code */

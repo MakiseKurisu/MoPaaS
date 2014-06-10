@@ -1,5 +1,6 @@
 var table = document.getElementById('result_table');
 
+var enum_date = document.getElementById('enum_date');
 var enum_sn = document.getElementById('enum_sn');
 var enum_name1 = document.getElementById('enum_name1');
 var enum_name2 = document.getElementById('enum_name2');
@@ -16,6 +17,7 @@ var enum_salesperson2 = document.getElementById('enum_salesperson2');
 var enum_salesperson3 = document.getElementById('enum_salesperson3');
 var enum_roomnumber = document.getElementById('enum_roomnumber');
 var enum_location = document.getElementById('enum_location');
+var enum_comment = document.getElementById('enum_comment');
 
 var EnumList = new Array();
 
@@ -32,6 +34,32 @@ refresh_option();
 var ResultList = new Array();
 
 show_all();
+
+clean_form();
+
+function today_date()
+{
+	var date = new Date();
+	var year = date.getFullYear().toString();
+	var month = (date.getMonth() + 1).toString();
+	var day = date.getDate().toString();
+
+	var str=""; 
+	for (i = 0; i < 2 - month.length; i++)
+	{ 
+		str += "0"; 
+	} 
+	month = str + month;
+
+	var str=""; 
+	for (i = 0; i < 2 - day.length; i++)
+	{ 
+		str += "0"; 
+	} 
+	day = str + day;
+
+	return year + "-" + month + "-" + day;
+}
 
 function refresh_option()
 {
@@ -311,15 +339,11 @@ function add_record(i)
 	var cell1 = row.insertCell(1);
 	var cell2 = row.insertCell(2);
 	var cell3 = row.insertCell(3);
-	var cell4 = row.insertCell(4);
-	var cell5 = row.insertCell(5);
 
 	cell0.innerHTML = ResultList[i].ID;
 	cell1.innerHTML = ResultList[i].Date;
 	cell2.innerHTML = ResultList[i].SN;
-	cell3.innerHTML = ResultList[i].Name1;
-	cell4.innerHTML = ResultList[i].Name2;
-	cell5.innerHTML = ResultList[i].Name3;
+	cell3.innerHTML = ResultList[i].Name1 + ' ' + ResultList[i].Name2 + ' ' + ResultList[i].Name3;
 }
 
 function add_to_database()
@@ -366,8 +390,14 @@ function add_to_database()
 	xmlhttp.open('POST','./backend.php?command=add',true);  
 	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	var record = {table:'sampletable', data:{}};
-	var date = new Date();
-	record.data.Date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+
+	if (enum_date.value == '')
+	{
+		status.className = 'alert alert-danger';
+		status.innerText = '日期不能为空';
+		return;
+	}
+	record.data.Date = enum_date.value;
 
 	if (enum_sn.value == '')
 	{
@@ -437,12 +467,16 @@ function add_to_database()
 	}
 	record.data.Location = enum_location.value;
 
+	record.data.Comment = enum_comment.value;
+
 	console.log(record);
     xmlhttp.send(JSON.stringify(record));
 }
 
 function clean_form()
 {
+	enum_date.value = today_date();
+
 	enum_sn.value = '';
 
 	enum_name1.value = '';
@@ -468,10 +502,14 @@ function clean_form()
 	enum_roomnumber.value = '';
 
 	enum_location.value = '';
+	
+	enum_comment.value = '';
 }
 
 function show_full_result(i)
 {
+	enum_date.value = ResultList[i].Date;
+
 	enum_sn.value = ResultList[i].SN;
 
 	enum_name1.value = ResultList[i].Name1;
@@ -497,4 +535,6 @@ function show_full_result(i)
 	enum_roomnumber.value = ResultList[i].RoomNumber;
 
 	enum_location.value = ResultList[i].Location;
+	
+	enum_comment.value = ResultList[i].Comment;
 }

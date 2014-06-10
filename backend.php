@@ -13,18 +13,6 @@
 
 	$database = new_medoo();
 
-	/* Legacy code */
-	$db = @mysql_connect("{$DB_HOST}:{$DB_PORT}", $DB_USER, $DB_PASSWORD, true);
-	if (!$db)
-	{
-		die('Could not connect: ' . mysql_error());
-	}
-	mysql_query("set character set 'utf8'");
-	mysql_query("set names 'utf8'");
-
-	mysql_select_db($GLOBALS['DB_NAME'], $db);
-	/* Legacy code */
-
 	switch ($_REQUEST['command'])
 	{
 		case 'add':
@@ -43,8 +31,4 @@
 			break;
 		}
 	}
-
-	/* Legacy code */
-	mysql_close($db);
-	/* Legacy code */
 ?>

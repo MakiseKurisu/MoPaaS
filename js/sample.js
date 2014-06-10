@@ -54,7 +54,7 @@ function add_option(name, object)
 		select.remove(1);
 	}
 
-	if (typeof(object.List) != 'undefined')
+	if ((typeof(object.List) != 'undefined') && object.List)
 	{
 		for (var i = 0; i < object.List.length; i++)
 		{
@@ -238,7 +238,7 @@ function show_all()
         	status.className = 'alert alert-success';
 			status.innerText = '已成功检索对象';
 			ResultList = json.Result;
-			if (typeof(ResultList) != 'undefined')
+			if ((typeof(ResultList) != 'undefined') && ResultList)
 			{
 				for (var i = 0; i < ResultList.length; i++)
 				{

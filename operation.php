@@ -3,14 +3,7 @@
 	{
 		$json = json_decode(file_get_contents("php://input"));
 
-		if (!$GLOBALS['database']->insert($json->{'table'}, (array) $json->{'data'}))
-		{
-			$return['Code'] = 0;
-			$return['Reason'] = '无法创建对象';
-			echo(json_encode($return));
-			return;
-		}
-
+		$return['Result'] = $GLOBALS['database']->insert($json->{'table'}, (array) $json->{'data'});
 		$return['Code'] = 1;
 		echo(json_encode($return));
 	}
@@ -19,16 +12,7 @@
 	{
 		$json = json_decode(file_get_contents("php://input"));
 
-		$result = $GLOBALS['database']->select($json->{'table'}, '*');
-		if (!$result)
-		{
-			$return['Code'] = 0;
-			$return['Reason'] = '无法创建对象';
-			echo(json_encode($return));
-			return;
-		}
-
-		$return['Result'] = $result;
+		$return['Result'] = $GLOBALS['database']->select($json->{'table'}, '*');
 		$return['Code'] = 1;
 		echo(json_encode($return));
 	}

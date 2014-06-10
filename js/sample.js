@@ -22,12 +22,10 @@ var EnumList = new Array();
 EnumList[0] = {Name:'Status'};
 EnumList[1] = {Name:'Bank'};
 EnumList[2] = {Name:'Agent'};
-EnumList[3] = {Name:'Salesperson'};
 
 EnumList[0].List = search_enum(0);
 EnumList[1].List = search_enum(1);
 EnumList[2].List = search_enum(2);
-EnumList[3].List = search_enum(3);
 
 refresh_option();
 
@@ -40,9 +38,6 @@ function refresh_option()
 	add_option('enum_status', EnumList[0]);
 	add_option('enum_bank', EnumList[1]);
 	add_option('enum_agent', EnumList[2]);
-	add_option('enum_salesperson1', EnumList[3]);
-	add_option('enum_salesperson2', EnumList[3]);
-	add_option('enum_salesperson3', EnumList[3]);
 }
 
 function add_option(name, object)
@@ -422,9 +417,9 @@ function add_to_database()
 	record.data.Receipt = enum_receipt.value;
 
 	record.data.Agent = enum_agent.selectedIndex;
-	record.data.Salesperson1 = enum_salesperson1.selectedIndex;
-	record.data.Salesperson2 = enum_salesperson2.selectedIndex;
-	record.data.Salesperson3 = enum_salesperson3.selectedIndex;
+	record.data.Salesperson1 = enum_salesperson1.value;
+	record.data.Salesperson2 = enum_salesperson2.value;
+	record.data.Salesperson3 = enum_salesperson3.value;
 
 	if (enum_roomnumber.value == '')
 	{
@@ -466,9 +461,9 @@ function clean_form()
 	enum_receipt.value = ''
 
 	enum_agent.selectedIndex = 0;
-	enum_salesperson1.selectedIndex = 0;
-	enum_salesperson2.selectedIndex = 0;
-	enum_salesperson3.selectedIndex = 0;
+	enum_salesperson1.value = '';
+	enum_salesperson2.value = '';
+	enum_salesperson3.value = '';
 
 	enum_roomnumber.value = '';
 
@@ -495,9 +490,9 @@ function show_full_result(i)
 	enum_receipt.value = ResultList[i].Receipt;
 
 	enum_agent.selectedIndex = ResultList[i].Agent;
-	enum_salesperson1.selectedIndex = ResultList[i].Salesperson1;
-	enum_salesperson2.selectedIndex = ResultList[i].Salesperson2;
-	enum_salesperson3.selectedIndex = ResultList[i].Salesperson3;
+	enum_salesperson1.value = ResultList[i].Salesperson1;
+	enum_salesperson2.value = ResultList[i].Salesperson2;
+	enum_salesperson3.value = ResultList[i].Salesperson3;
 
 	enum_roomnumber.value = ResultList[i].RoomNumber;
 

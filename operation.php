@@ -50,9 +50,9 @@
 		CardNumber varchar(32),
 		Receipt int,
 		Agent int,
-		Salesperson1 int,
-		Salesperson2 int,
-		Salesperson3 int,
+		Salesperson1 varchar(32),
+		Salesperson2 varchar(32),
+		Salesperson3 varchar(32),
 		RoomNumber varchar(32),
 		Location varchar(32),
 		Comment varchar(128)
@@ -118,24 +118,6 @@
 		{
 			$return['Code'] = 0;
 			$return['Reason'] = '无法创建Agent表: ' . $GLOBALS['database']->error()[2];
-			echo(json_encode($return));
-			return;
-		}
-
-		// Salesperson table
-		$sql = 'CREATE TABLE Salesperson
-		(
-		ID int NOT NULL AUTO_INCREMENT, 
-		PRIMARY KEY(ID),
-		Value varchar(32)
-		)
-		CHARACTER SET utf8
-		COLLATE utf8_general_ci';
-		
-		if (!$GLOBALS['database']->query($sql))
-		{
-			$return['Code'] = 0;
-			$return['Reason'] = '无法创建Salesperson表: ' . $GLOBALS['database']->error()[2];
 			echo(json_encode($return));
 			return;
 		}

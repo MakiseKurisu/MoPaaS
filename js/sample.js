@@ -166,7 +166,9 @@ function add_enum(i)
 	};
 	xmlhttp.open('POST','./backend.php?command=add',true);  
 	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	var record = {table:EnumList[i].Name, value:"'" + enum_object.value + "'"};
+	var record = {table:EnumList[i].Name, data:{}};
+	record.data.value = enum_object.value;
+	console.log(record);
     xmlhttp.send(JSON.stringify(record));
 }
 
@@ -304,9 +306,9 @@ function add_to_database()
 	};
 	xmlhttp.open('POST','./backend.php?command=add',true);  
 	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	var record = {table:'sampletable'};
+	var record = {table:'sampletable', data:{}};
 	var date = new Date();
-	record.Date = "'" + date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "'";
+	record.data.Date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 
 	if (enum_sn.value == null)
 	{
@@ -314,11 +316,11 @@ function add_to_database()
 		status.innerText = '协议号不能为空';
 		return;
 	}
-	record.SN = enum_sn.value;
+	record.data.SN = enum_sn.value;
 
-	record.Name1 = "'" + enum_name1.value + "'";
-	record.Name2 = "'" + enum_name2.value + "'";
-	record.Name3 = "'" + enum_name3.value + "'";
+	record.data.Name1 = enum_name1.value;
+	record.data.Name2 = enum_name2.value;
+	record.data.Name3 = enum_name3.value;
 
 	if (enum_mobile.value == null)
 	{
@@ -326,7 +328,7 @@ function add_to_database()
 		status.innerText = '电话号码不能为空';
 		return;
 	}
-	record.Mobile = "'" + enum_mobile.value + "'";
+	record.data.Mobile = enum_mobile.value;
 
 	if (enum_personalid.value == null)
 	{
@@ -334,10 +336,10 @@ function add_to_database()
 		status.innerText = '身份证号不能为空';
 		return;
 	}
-	record.PersonalID = "'" + enum_personalid.value + "'";
+	record.data.PersonalID = enum_personalid.value;
 
-	record.Status = enum_status.selectedIndex;
-	record.Bank = enum_bank.selectedIndex;
+	record.data.Status = enum_status.selectedIndex;
+	record.data.Bank = enum_bank.selectedIndex;
 
 	if (enum_cardnumber.value == null)
 	{
@@ -345,7 +347,7 @@ function add_to_database()
 		status.innerText = '卡号不能为空';
 		return;
 	}
-	record.CardNumber = "'" + enum_cardnumber.value + "'";
+	record.data.CardNumber = enum_cardnumber.value;
 
 	if (enum_receipt.value == null)
 	{
@@ -353,12 +355,12 @@ function add_to_database()
 		status.innerText = '收据号码不能为空';
 		return;
 	}
-	record.Receipt = enum_receipt.value;
+	record.data.Receipt = enum_receipt.value;
 
-	record.Agent = enum_agent.selectedIndex;
-	record.Salesperson1 = enum_salesperson1.selectedIndex;
-	record.Salesperson2 = enum_salesperson2.selectedIndex;
-	record.Salesperson3 = enum_salesperson3.selectedIndex;
+	record.data.Agent = enum_agent.selectedIndex;
+	record.data.Salesperson1 = enum_salesperson1.selectedIndex;
+	record.data.Salesperson2 = enum_salesperson2.selectedIndex;
+	record.data.Salesperson3 = enum_salesperson3.selectedIndex;
 
 	if (enum_roomnumber.value == null)
 	{
@@ -366,7 +368,7 @@ function add_to_database()
 		status.innerText = '选购房源不能为空';
 		return;
 	}
-	record.RoomNumber = "'" + enum_roomnumber.value + "'";
+	record.data.RoomNumber = enum_roomnumber.value;
 
 	if (enum_location.value == null)
 	{
@@ -374,7 +376,7 @@ function add_to_database()
 		status.innerText = '来源区域不能为空';
 		return;
 	}
-	record.Location = "'" + enum_location.value + "'";
+	record.data.Location = enum_location.value;
 
 	console.log(record);
     xmlhttp.send(JSON.stringify(record));

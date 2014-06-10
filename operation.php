@@ -2,39 +2,8 @@
 	function add_data()
 	{
 		$json = json_decode(file_get_contents("php://input"));
-		mysql_query("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'", $GLOBALS['db']);
 
-		$sql = 'INSERT INTO ' . $json->{'table'};
-		$keys = '';
-		$values = '';
-		foreach ($json as $key => $value)
-		{
-			if ($key == 'table')
-			{
-				continue;
-			}
-			
-			if ($keys == '')
-			{
-				$keys = $key;
-			}
-			else
-			{
-				$keys = $keys . ',' . $key;
-			}
-
-			if ($values == '')
-			{
-				$values = $value;
-			}
-			else
-			{
-				$values = $values . ',' . $value;
-			}
-		}
-		$sql = $sql . ' (' . $keys . ') VALUES (' . $values . ')';
-
-		if (!mysql_query($sql,$GLOBALS['db']))
+		if (!$GLOBALS['database']->insert($json->{'table'}, (array) $json->{'data'}))
 		{
 			$return['Code'] = 0;
 			$return['Reason'] = '无法创建对象';
@@ -43,7 +12,6 @@
 		}
 
 		$return['Code'] = 1;
-		$return['Sql'] = $sql;
 		echo(json_encode($return));
 	}
 
@@ -51,9 +19,7 @@
 	{
 		$json = json_decode(file_get_contents("php://input"));
 
-		$sql = 'SELECT * FROM ' . $json->{'table'};
-
-		$result = mysql_query($sql,$GLOBALS['db']);
+		$result = $GLOBALS['database']->select($json->{'table'}, '*');
 		if (!$result)
 		{
 			$return['Code'] = 0;
@@ -62,11 +28,7 @@
 			return;
 		}
 
-		for($i = 0; $row = mysql_fetch_array($result); $i++)
-		{
-			$return['Result'][$i] = $row;
-		}
-
+		$return['Result'] = $result;
 		$return['Code'] = 1;
 		echo(json_encode($return));
 	}

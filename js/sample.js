@@ -117,7 +117,7 @@ function init_db()
 	console.log('Enter init_db');
 
 	var status = document.getElementById('status');
-	status.className = 'alert alert-info';
+	status.className = 'col-md-10 col-md-offset-1 alert alert-info';
 	status.innerText = '正在发送请求...';
 
 	xmlhttp = create_xmlhttp();
@@ -134,21 +134,21 @@ function init_db()
 					console.log(json);
 		            if (json.Code == 0)
 		            {
-		            	status.className = 'alert alert-danger';
+		            	status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 						status.innerText = json.Reason;
 		            }
 		            else
 		            {
 		            	clean_form();
 						show_all();
-		            	status.className = 'alert alert-success';
+		            	status.className = 'col-md-10 col-md-offset-1 alert alert-success';
 						status.innerText = '数据库已成功初始化';
 		            }
 		            break;
 		        }
 		        default:
 		        {
-					status.className = 'alert alert-danger';
+					status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 					status.innerText = '连接失败';
 					break;
 				}
@@ -167,12 +167,12 @@ function add_enum(i)
 
 	if (enum_object.value == '')
 	{
-		status.className = 'alert alert-warning';
+		status.className = 'col-md-10 col-md-offset-1 alert alert-warning';
 		status.innerText = '对象名称不能为空';
 		return;
 	}
 
-	status.className = 'alert alert-info';
+	status.className = 'col-md-10 col-md-offset-1 alert alert-info';
 	status.innerText = '正在发送请求...';
 
 	xmlhttp = create_xmlhttp();
@@ -189,14 +189,14 @@ function add_enum(i)
 					console.log(json);
 		            if (json.Code == 0)
 		            {
-		            	status.className = 'alert alert-danger';
+		            	status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 						status.innerText = json.Reason;
 		            }
 		            else
 		            {
 		            	EnumList[i].List = search_enum(i);
 		            	refresh_option();
-		            	status.className = 'alert alert-success';
+		            	status.className = 'col-md-10 col-md-offset-1 alert alert-success';
 						status.innerText = '已成功添加对象';
 						enum_object.value = "";
 		            }
@@ -204,7 +204,7 @@ function add_enum(i)
 		        }
 		        default:
 		        {
-					status.className = 'alert alert-danger';
+					status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 					status.innerText = '连接失败';
 					break;
 				}
@@ -223,7 +223,7 @@ function search_enum(i)
 {
 	console.log('Enter search_enum');
 	var status = document.getElementById('status');
-	status.className = 'alert alert-info';
+	status.className = 'col-md-10 col-md-offset-1 alert alert-info';
 	status.innerText = '正在发送请求...';
 
 	xmlhttp = create_xmlhttp();
@@ -243,13 +243,13 @@ function search_enum(i)
 				console.log(json);
 		        if (json.Code == 0)
 		        {
-		        	status.className = 'alert alert-danger';
+		        	status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 					status.innerText = json.Reason;
 					return null;
 		        }
 		        else
 		        {
-		        	status.className = 'alert alert-success';
+		        	status.className = 'col-md-10 col-md-offset-1 alert alert-success';
 					status.innerText = '已成功检索对象';
 					return json.Result;
 		        }
@@ -257,7 +257,7 @@ function search_enum(i)
 		    }
 		    default:
 		    {
-				status.className = 'alert alert-danger';
+				status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 				status.innerText = '连接失败';
 				return null;
 				break;
@@ -275,7 +275,7 @@ function show_all()
 		table.deleteRow(-1);
 	}
 	var status = document.getElementById('status');
-	status.className = 'alert alert-info';
+	status.className = 'col-md-10 col-md-offset-1 alert alert-info';
 	status.innerText = '正在发送请求...';
 
 	xmlhttp = create_xmlhttp();
@@ -295,12 +295,12 @@ function show_all()
 				console.log(json);
 		        if (json.Code == 0)
 		        {
-		        	status.className = 'alert alert-danger';
+		        	status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 					status.innerText = json.Reason;
 		        }
 		        else
 		        {
-		        	status.className = 'alert alert-success';
+		        	status.className = 'col-md-10 col-md-offset-1 alert alert-success';
 					status.innerText = '已成功检索对象';
 					ResultList = json.Result;
 					if ((typeof(ResultList) != 'undefined') && ResultList)
@@ -315,7 +315,7 @@ function show_all()
 		    }
 		    default:
 		    {
-				status.className = 'alert alert-danger';
+				status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 				status.innerText = '连接失败';
 				break;
 			}
@@ -350,7 +350,7 @@ function add_to_database()
 {
 	console.log('Enter add_to_database');
 	var status = document.getElementById('status');
-	status.className = 'alert alert-info';
+	status.className = 'col-md-10 col-md-offset-1 alert alert-info';
 	status.innerText = '正在发送请求...';
 
 	xmlhttp = create_xmlhttp();
@@ -367,24 +367,26 @@ function add_to_database()
 					console.log(json);
 		            if (json.Code == 0)
 		            {
-		            	status.className = 'alert alert-danger';
+		            	status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 						status.innerText = json.Reason;
 		            }
 		            else
 		            {
-		            	status.className = 'alert alert-success';
+		            	show_all();
+		            	clean_form();
+		            	status.className = 'col-md-10 col-md-offset-1 alert alert-success';
 						status.innerText = '已成功添加对象';
 		            }
 		            break;
 				}
 				default:
 				{
-					status.className = 'alert alert-danger';
+					status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 					status.innerText = '连接失败';
 					break;
 				}
 			}
-			
+			$('#addModal').modal('hide');
         }
 	};
 	xmlhttp.open('POST','./backend.php?command=add',true);  
@@ -393,7 +395,7 @@ function add_to_database()
 
 	if (enum_date.value == '')
 	{
-		status.className = 'alert alert-danger';
+		status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 		status.innerText = '日期不能为空';
 		return;
 	}
@@ -401,7 +403,7 @@ function add_to_database()
 
 	if (enum_sn.value == '')
 	{
-		status.className = 'alert alert-danger';
+		status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 		status.innerText = '协议号不能为空';
 		return;
 	}
@@ -413,7 +415,7 @@ function add_to_database()
 
 	if (enum_mobile.value == '')
 	{
-		status.className = 'alert alert-danger';
+		status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 		status.innerText = '电话号码不能为空';
 		return;
 	}
@@ -421,7 +423,7 @@ function add_to_database()
 
 	if (enum_personalid.value == '')
 	{
-		status.className = 'alert alert-danger';
+		status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 		status.innerText = '身份证号不能为空';
 		return;
 	}
@@ -432,7 +434,7 @@ function add_to_database()
 
 	if (enum_cardnumber.value == '')
 	{
-		status.className = 'alert alert-danger';
+		status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 		status.innerText = '卡号不能为空';
 		return;
 	}
@@ -440,7 +442,7 @@ function add_to_database()
 
 	if (enum_receipt.value == '')
 	{
-		status.className = 'alert alert-danger';
+		status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 		status.innerText = '收据号码不能为空';
 		return;
 	}
@@ -453,7 +455,7 @@ function add_to_database()
 
 	if (enum_roomnumber.value == '')
 	{
-		status.className = 'alert alert-danger';
+		status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 		status.innerText = '选购房源不能为空';
 		return;
 	}
@@ -461,7 +463,7 @@ function add_to_database()
 
 	if (enum_location.value == '')
 	{
-		status.className = 'alert alert-danger';
+		status.className = 'col-md-10 col-md-offset-1 alert alert-danger';
 		status.innerText = '来源区域不能为空';
 		return;
 	}

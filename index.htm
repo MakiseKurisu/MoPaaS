@@ -37,6 +37,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">录入 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="###" data-toggle="modal" data-target="#addModal">添加</a></li>
+							<li><a href="###" onclick="show_all();">全部显示</a></li>
 							<li><a href="###">查询</a></li>
 						</ul>
 					</li>
@@ -44,7 +45,7 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">管理 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="###">查看</a></li>
+							<li><a href="###" data-toggle="modal" data-target="#manageModal">常用</a></li>
 							<li class="divider"></li>
 							<li><a href="###">注销</a></li>
 						</ul>
@@ -75,187 +76,7 @@
 		</div><!-- /.container-fluid -->
 	</nav>
 
-<!-- Modal -->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">添加数据</h4>
-			</div>
-
-			<div class="modal-body">
-					<form class="form" role="form">
-	            	<div class="col-md-12">
-						<div class="col-md-4">
-	            	    	日期<input type="text" class="form-control" id="enum_date">
-						</div>
-						<div class="col-md-4">
-	            	    	协议号<input type="text" class="form-control" id="enum_sn">
-						</div>
-					</div>
-
-					</br>
-					</br>
-					</br>
-
-					<div class="col-md-12">
-						<div class="col-md-4">
-							客户姓名1<input type="text" class="form-control" id="enum_name1">
-						</div>
-						<div class="col-md-4">
-							客户姓名2<input type="text" class="form-control" id="enum_name2">
-						</div>
-						<div class="col-md-4">
-							客户姓名3<input type="text" class="form-control" id="enum_name3">
-						</div>
-					</div>
-
-					</br>
-					</br>
-					</br>
-
-					<div class="col-md-12">
-						<div class="col-md-4">
-							电话号码<input type="text" class="form-control" id="enum_mobile">
-						</div>
-					</div>
-
-					</br>
-					</br>
-					</br>
-
-					<div class="col-md-12">
-						<div class="col-md-4">
-							身份证号<input type="text" class="form-control" id="enum_personalid">
-						</div>
-						<div class="col-md-4">
-							状态<select class="form-control" id="enum_status"></select>
-						</div>
-					</div>
-
-					</br>
-					</br>
-					</br>
-
-					<div class="col-md-12">
-						<div class="col-md-4">
-							银行<select class="form-control" id="enum_bank"></select>
-						</div>
-						<div class="col-md-4">
-							卡号<input type="text" class="form-control" id="enum_cardnumber">
-						</div>
-						<div class="col-md-4">
-							收据号码<input type="text" class="form-control" id="enum_receipt">
-						</div>
-					</div>
-
-					</br>
-					</br>
-					</br>
-
-					<div class="col-md-12">
-						<div class="col-md-4">
-							代理公司<select class="form-control" id="enum_agent"></select>
-						</div>
-					</div>
-
-					</br>
-					</br>
-					</br>
-
-					<div class="col-md-12">
-						<div class="col-md-4">
-							销售员1<input type="text" class="form-control" id="enum_salesperson1">
-						</div>
-						<div class="col-md-4">
-							销售员2<input type="text" class="form-control" id="enum_salesperson2">
-						</div>
-						<div class="col-md-4">
-							销售员3<input type="text" class="form-control" id="enum_salesperson3">
-						</div>
-					</div>
-
-					</br>
-					</br>
-					</br>
-
-					<div class="col-md-12">
-						<div class="col-md-4">
-							选购房源<input type="text" class="form-control" id="enum_roomnumber">
-						</div>
-						<div class="col-md-4">
-							来源区域<input type="text" class="form-control" id="enum_location">
-						</div>
-					</div>
-
-					</br>
-					</br>
-					</br>
-
-					<div class="col-md-12">
-						<div class="col-md-12">
-							备注<input type="text" class="form-control" id="enum_comment">
-						</div>
-					</div>
-
-					</br>
-					</br>
-					</br>
-				</form>
-			</div>
-
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				<button type="button" class="btn btn-primary" onclick="add_to_database();">添加</button>
-				<button type="button" class="btn btn-danger" onclick="clean_form();">清空</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-    <div class="col-md-3 col-md-offset-1">
-        <div class="panel panel-primary">
-            <div class="panel-heading">管理面板</div>
-
-            <div class="panel-body">
-            	<button type="button" class="btn btn-primary btn-block" onclick="init_db();">初始化数据库</button>
-            	</br>
-            	<div>
-					<div class="input-group">
-						<input type="text" class="form-control" id="enum_object" placeholder="对象名称">
-						<div class="input-group-btn">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">添加对象到<span class="caret"></span></button>
-							<ul class="dropdown-menu">
-								<li><a href="###" onclick="add_enum(0);">Status</a></li>
-								<li><a href="###" onclick="add_enum(1);">Bank</a></li>
-								<li><a href="###" onclick="add_enum(2);">Agent</a></li>
-								<li><a href="###" onclick="add_enum(3);">Salesperson</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-            </div>
-        </div>
-
-        <div class="panel panel-primary">
-            <div class="panel-heading">状态</div>
-
-            <div class="panel-body">
-            	<div class="alert alert-info" id="status">准备中</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-7">
-        <div class="panel panel-primary">
-            <div class="panel-heading">工作区</div>
-
-            <div class="panel-body">
-            	<button type="button" class="btn btn-primary" onclick="show_all();">全部显示</button>
-            </div>
-        </div>
-    </div>
+    <div class="col-md-10 col-md-offset-1 alert alert-info" id="status">准备中</div>
 
     <div class="col-md-10 col-md-offset-1">
         <table class="table" id="result_table">
@@ -270,8 +91,182 @@
         </table>
     </div>
 
+	<!-- Modal -->
+	<div class="modal fade" id="manageModal" tabindex="-1" role="dialog" aria-labelledby="addmanageModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">常用</h4>
+				</div>
+
+				<div class="modal-body">
+					<button type="button" class="btn btn-primary btn-block" onclick="init_db();">初始化数据库</button>
+	            	</br>
+	            	<div>
+						<div class="input-group">
+							<input type="text" class="form-control" id="enum_object" placeholder="对象名称">
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">添加对象到<span class="caret"></span></button>
+								<ul class="dropdown-menu">
+									<li><a href="###" onclick="add_enum(0);">Status</a></li>
+									<li><a href="###" onclick="add_enum(1);">Bank</a></li>
+									<li><a href="###" onclick="add_enum(2);">Agent</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">添加数据</h4>
+				</div>
+
+				<div class="modal-body">
+						<form class="form" role="form">
+		            	<div class="col-md-12">
+							<div class="col-md-4">
+		            	    	日期<input type="text" class="form-control" id="enum_date">
+							</div>
+							<div class="col-md-4">
+		            	    	协议号<input type="text" class="form-control" id="enum_sn">
+							</div>
+						</div>
+
+						</br>
+						</br>
+						</br>
+
+						<div class="col-md-12">
+							<div class="col-md-4">
+								客户姓名1<input type="text" class="form-control" id="enum_name1">
+							</div>
+							<div class="col-md-4">
+								客户姓名2<input type="text" class="form-control" id="enum_name2">
+							</div>
+							<div class="col-md-4">
+								客户姓名3<input type="text" class="form-control" id="enum_name3">
+							</div>
+						</div>
+
+						</br>
+						</br>
+						</br>
+
+						<div class="col-md-12">
+							<div class="col-md-4">
+								电话号码<input type="text" class="form-control" id="enum_mobile">
+							</div>
+						</div>
+
+						</br>
+						</br>
+						</br>
+
+						<div class="col-md-12">
+							<div class="col-md-4">
+								身份证号<input type="text" class="form-control" id="enum_personalid">
+							</div>
+							<div class="col-md-4">
+								状态<select class="form-control" id="enum_status"></select>
+							</div>
+						</div>
+
+						</br>
+						</br>
+						</br>
+
+						<div class="col-md-12">
+							<div class="col-md-4">
+								银行<select class="form-control" id="enum_bank"></select>
+							</div>
+							<div class="col-md-4">
+								卡号<input type="text" class="form-control" id="enum_cardnumber">
+							</div>
+							<div class="col-md-4">
+								收据号码<input type="text" class="form-control" id="enum_receipt">
+							</div>
+						</div>
+
+						</br>
+						</br>
+						</br>
+
+						<div class="col-md-12">
+							<div class="col-md-4">
+								代理公司<select class="form-control" id="enum_agent"></select>
+							</div>
+						</div>
+
+						</br>
+						</br>
+						</br>
+
+						<div class="col-md-12">
+							<div class="col-md-4">
+								销售员1<input type="text" class="form-control" id="enum_salesperson1">
+							</div>
+							<div class="col-md-4">
+								销售员2<input type="text" class="form-control" id="enum_salesperson2">
+							</div>
+							<div class="col-md-4">
+								销售员3<input type="text" class="form-control" id="enum_salesperson3">
+							</div>
+						</div>
+
+						</br>
+						</br>
+						</br>
+
+						<div class="col-md-12">
+							<div class="col-md-4">
+								选购房源<input type="text" class="form-control" id="enum_roomnumber">
+							</div>
+							<div class="col-md-4">
+								来源区域<input type="text" class="form-control" id="enum_location">
+							</div>
+						</div>
+
+						</br>
+						</br>
+						</br>
+
+						<div class="col-md-12">
+							<div class="col-md-12">
+								备注<input type="text" class="form-control" id="enum_comment">
+							</div>
+						</div>
+
+						</br>
+						</br>
+						</br>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" onclick="add_to_database();">添加</button>
+					<button type="button" class="btn btn-danger" onclick="clean_form();">清空</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
     <script src="./js/jquery.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/sample.js"></script>
+
 </body>
+
 </html>

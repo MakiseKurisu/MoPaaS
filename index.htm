@@ -142,10 +142,11 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">添加</h4>
+					<h4 class="modal-title" id="addModalLabel">数据操作</h4>
 				</div>
 
 				<div class="modal-body">
+					<input type="text" style="display:none" id="enum_id">
 					<p>
 						<div class="col-md-4">
 	            	    	<label>日期 (*)</label>
@@ -289,7 +290,7 @@
 				<div class="modal-footer">
 					<p>
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary" onclick="add_to_database();">添加</button>
+						<button type="button" class="btn btn-primary" onclick="save_to_database();">保存</button>
 						<button type="button" class="btn btn-danger" onclick="clean_form();">清空</button>
 					</p>
 				</div>

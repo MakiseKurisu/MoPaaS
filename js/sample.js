@@ -1,5 +1,6 @@
 var table = document.getElementById('result_table');
 
+var enum_id = document.getElementById('enum_id');
 var enum_date = document.getElementById('enum_date');
 var enum_sn = document.getElementById('enum_sn');
 var enum_name1 = document.getElementById('enum_name1');
@@ -283,7 +284,7 @@ function add_enum(i)
 			}
         }
 	};
-	xmlhttp.open('POST','./backend.php?command=add',true);  
+	xmlhttp.open('POST','./backend.php?command=save',true);  
 	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	var record = {table:EnumList[i].Name, data:{}};
 	record.data.value = enum_object.value;
@@ -369,12 +370,16 @@ function show_all()
 						for (index in DataList)
 						{
 							var THIS = DataList[index];
-							if ((typeof(THIS) != 'undefined') && THIS)
+							try
 							{
 								THIS.Name = THIS.Name1 + ' ' + THIS.Name2 + ' ' + THIS.Name3;
 								THIS.StatusText = EnumList[0].List[THIS.Status].Value;
 								THIS.BankText = EnumList[1].List[THIS.Bank].Value;
 								THIS.AgentText = EnumList[2].List[THIS.Agent].Value;
+							}
+							catch (e)
+							{
+
 							}
 						}
 						apply_filter();
@@ -423,11 +428,11 @@ function redraw_table()
 		cell[3].innerHTML = ResultList[i].Name;
 		cell[4].innerHTML = ResultList[i].Mobile;
 		cell[5].innerHTML = optionText(enum_status, ResultList[i].Status);
-		cell[6].innerHTML = '<button type="button" class="btn btn-info" onclick="show_full_result(' + i + ');">详细</button>';
+		cell[6].innerHTML = '<button type="button" class="btn btn-info" onclick="show_full_result(' + i + ');">编辑</button>';
 	}
 }
 
-function add_to_database()
+function save_to_database()
 {
 	var status = document.getElementById('status');
 	status.className = 'alert alert-info';
@@ -443,6 +448,7 @@ function add_to_database()
 				case 200:
 				{
 					var json = JSON.parse(xmlhttp.responseText);
+					console.log(json);
 		            if (json.Code == 0)
 		            {
 		            	status.className = 'alert alert-danger';
@@ -467,9 +473,15 @@ function add_to_database()
 			$('#addModal').modal('hide');
         }
 	};
-	xmlhttp.open('POST','./backend.php?command=add',true);  
+
+	xmlhttp.open('POST','./backend.php?command=save',true);  
 	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	var record = {table:'sampletable', data:{}};
+
+	if (enum_id.value != '')
+	{
+		record.data.ID = enum_id.value;
+	}
 
 	if (enum_date.value == '')
 	{
@@ -550,6 +562,8 @@ function add_to_database()
 
 	record.data.Comment = enum_comment.value;
 
+	console.log(record);
+
     xmlhttp.send(JSON.stringify(record));
 }
 
@@ -557,6 +571,7 @@ function clean_form()
 {
 	enum_date.value = today_date();
 
+	enum_id.value = '';
 	enum_sn.value = '';
 
 	enum_name1.value = '';
@@ -591,6 +606,7 @@ function show_full_result(i)
 {
 	enum_date.value = ResultList[i].Date;
 
+	enum_id.value = ResultList[i].ID;
 	enum_sn.value = ResultList[i].SN;
 
 	enum_name1.value = ResultList[i].Name1;

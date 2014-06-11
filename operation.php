@@ -1,9 +1,16 @@
 <?php
-	function add_data()
+	function save_data()
 	{
 		$json = json_decode(file_get_contents("php://input"));
 
-		$return['Result'] = $GLOBALS['database']->insert($json->{'table'}, (array) $json->{'data'});
+		if (property_exists($json->{'data'}, 'ID'))
+		{
+			$return['Result'] = $GLOBALS['database']->update($json->{'table'}, (array) $json->{'data'});
+		}
+		else
+		{
+			$return['Result'] = $GLOBALS['database']->insert($json->{'table'}, (array) $json->{'data'});
+		}
 		$return['Code'] = 1;
 		echo(json_encode($return));
 	}

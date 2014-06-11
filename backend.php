@@ -15,9 +15,9 @@
 
 	switch ($_REQUEST['command'])
 	{
-		case 'add':
+		case 'save':
 		{
-			add_data();
+			save_data();
 			break;
 		}
 		case 'search':

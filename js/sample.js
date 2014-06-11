@@ -11,7 +11,8 @@ var enum_phone = document.getElementById('enum_phone');
 var enum_personalid = document.getElementById('enum_personalid');
 var enum_status = document.getElementById('enum_status');
 var enum_bank = document.getElementById('enum_bank');
-var enum_cardnumber = document.getElementById('enum_cardnumber');
+var enum_cardnumber1 = document.getElementById('enum_cardnumber1');
+var enum_cardnumber2 = document.getElementById('enum_cardnumber2');
 var enum_receipt = document.getElementById('enum_receipt');
 var enum_agent = document.getElementById('enum_agent');
 var enum_salesperson1 = document.getElementById('enum_salesperson1');
@@ -383,6 +384,7 @@ function show_all()
 								}
 
 								THIS.Name = THIS.Name1 + ' ' + THIS.Name2 + ' ' + THIS.Name3;
+								THIS.CardNumber = THIS.CardNumber1 + 'XXX' + THIS.CardNumber2;
 								THIS.StatusText = EnumList[0].List[THIS.Status].Value;
 								THIS.BankText = EnumList[1].List[THIS.Bank].Value;
 								THIS.AgentText = EnumList[2].List[THIS.Agent].Value;
@@ -533,13 +535,14 @@ function save_to_database()
 	record.data.Status = enum_status.selectedIndex;
 	record.data.Bank = enum_bank.selectedIndex;
 
-	if (enum_cardnumber.value == '')
+	if (enum_cardnumber1.value == '' || enum_cardnumber2.value == '')
 	{
 		status.className = 'alert alert-danger';
 		status.innerText = '卡号不能为空';
 		return;
 	}
-	record.data.CardNumber = enum_cardnumber.value;
+	record.data.CardNumber1 = enum_cardnumber1.value;
+	record.data.CardNumber2 = enum_cardnumber2.value;
 
 	if (enum_receipt.value == '')
 	{
@@ -596,7 +599,8 @@ function clean_form()
 	enum_status.selectedIndex = 0;
 	enum_bank.selectedIndex = 0;
 
-	enum_cardnumber.value = '';
+	enum_cardnumber1.value = '';
+	enum_cardnumber2.value = '';
 
 	enum_receipt.value = ''
 
@@ -631,7 +635,8 @@ function show_full_result(i)
 	enum_status.selectedIndex = ResultList[i].Status;
 	enum_bank.selectedIndex = ResultList[i].Bank;
 
-	enum_cardnumber.value = ResultList[i].CardNumber;
+	enum_cardnumber1.value = ResultList[i].CardNumber1;
+	enum_cardnumber2.value = ResultList[i].CardNumber2;
 
 	enum_receipt.value = ResultList[i].Receipt;
 

@@ -350,12 +350,6 @@ function show_all()
 function add_record(i)
 {
 	var row = table.insertRow(-1);
-	row.addEventListener("click",
-	function() 
-	{
-    	show_full_result(i);
-	}
-	);
 
 	var cell = new Array();
 	cell[0] = row.insertCell(0);
@@ -364,6 +358,7 @@ function add_record(i)
 	cell[3] = row.insertCell(3);
 	cell[4] = row.insertCell(4);
 	cell[5] = row.insertCell(5);
+	cell[6] = row.insertCell(6);
 
 	cell[0].innerHTML = ResultList[i].ID;
 	cell[1].innerHTML = ResultList[i].Date;
@@ -371,6 +366,7 @@ function add_record(i)
 	cell[3].innerHTML = ResultList[i].Name1 + ' ' + ResultList[i].Name2 + ' ' + ResultList[i].Name3;
 	cell[4].innerHTML = ResultList[i].Mobile;
 	cell[5].innerHTML = optionText(enum_status, ResultList[i].Status);
+	cell[6].innerHTML = '<button type="button" class="btn btn-info" onclick="show_full_result(' + i + ');">详细</button>';
 }
 
 function add_to_database()

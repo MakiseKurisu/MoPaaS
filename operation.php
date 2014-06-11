@@ -5,11 +5,17 @@
 
 		if (property_exists($json->{'data'}, 'ID'))
 		{
-			$return['Result'] = $GLOBALS['database']->update($json->{'table'}, (array) $json->{'data'});
+			$id = $json->{'data'}->{'ID'};
+			unset($json->{'data'}->{'ID'});
+			$return['Result'] = $GLOBALS['database']->update($json->{'table'}, (array) $json->{'data'}, ["ID" => $id]);
 		}
 		else
 		{
 			$return['Result'] = $GLOBALS['database']->insert($json->{'table'}, (array) $json->{'data'});
+		}
+		if (!$return['Result'])
+		{
+			$return['Reason'] = $GLOBALS['database']->error()[2];
 		}
 		$return['Code'] = 1;
 		echo(json_encode($return));

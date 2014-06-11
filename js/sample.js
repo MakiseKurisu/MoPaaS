@@ -372,6 +372,16 @@ function show_all()
 							var THIS = DataList[index];
 							try
 							{
+								if (THIS.Mobile == 0 || THIS.Mobile == undefined)
+								{
+									THIS.Mobile = '';
+								}
+
+								if (THIS.Phone == 0 || THIS.Phone == undefined)
+								{
+									THIS.Phone = '';
+								}
+
 								THIS.Name = THIS.Name1 + ' ' + THIS.Name2 + ' ' + THIS.Name3;
 								THIS.StatusText = EnumList[0].List[THIS.Status].Value;
 								THIS.BankText = EnumList[1].List[THIS.Bank].Value;
@@ -503,7 +513,7 @@ function save_to_database()
 	record.data.Name2 = enum_name2.value;
 	record.data.Name3 = enum_name3.value;
 
-	if (enum_mobile.value == '' && enum_phone.value)
+	if (enum_mobile.value == '' && enum_phone.value == '' )
 	{
 		status.className = 'alert alert-danger';
 		status.innerText = '电话号码不能为空';

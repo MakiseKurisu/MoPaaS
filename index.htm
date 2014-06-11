@@ -33,13 +33,7 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li class="dropdown active">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">录入 <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="#" data-toggle="modal" data-target="#addModal">添加</a></li>
-							<li><a href="###" onclick="show_all();">显示全部</a></li>
-						</ul>
-					</li>
+					<li><a href="#" data-toggle="modal" data-target="#addModal">添加</a></li>
 
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">管理 <b class="caret"></b></a>
@@ -61,30 +55,24 @@
 
     	<p>
 	    	<form class="form-inline" role="form">
-				当
+	    		当
 				<select class="form-control" id="filter_field">
-					<option value="Date">日期</option>
-					<option value="SN">协议号</option>
 					<option value="Name">客户姓名</option>
 					<option value="Mobile">电话号码</option>
 					<option value="PersonalID">身份证号</option>
-					<option value="Status">状态</option>
-					<option value="Bank">银行</option>
-					<option value="CardNumber">卡号</option>
+					<option value="StatusText">状态</option>
+					<option value="Date">日期</option>
+					<option value="SN">协议号</option>
 					<option value="Receipt">收据号码</option>
-					<option value="Agent">代理公司</option>
+					<option value="BankText">银行</option>
+					<option value="CardNumber">卡号</option>
+					<option value="AgentText">代理公司</option>
 					<option value="Salesperson">销售员</option>
 					<option value="RoomNumber">选购房源</option>
 					<option value="Location">来源区域</option>
 					<option value="Comment">备注</option>
 				</select>
-
-				<select class="form-control" id="filter_condition">
-					<option value="GTR">大于</option>
-					<option value="EQU">等于</option>
-					<option value="LSS">小于</option>
-				</select>
-
+				包含
 				<input type="text" class="form-control" id="filter_value">
 				时
 				<select class="form-control" id="filter_switch">
@@ -93,6 +81,7 @@
 				</select>
 
 				<a type="button" class="btn btn-primary" onclick="add_filter();">添加过滤器</a>
+				<a type="button" class="btn btn-danger" onclick="clean_filter();">清除过滤器</a>
 			</form>
 		</p>
 
@@ -102,12 +91,12 @@
 		<table class="table" id="result_table">
             <thead>
                 <tr>
-                    <th>套数</th>
-                    <th>日期</th>
-                    <th>协议号</th>
-                    <th>客户姓名</th>
-                    <th>电话号码</th>
-                    <th>状态</th>
+                    <th onclick="sort_table(sort_id);">套数 <span class="glyphicon glyphicon-arrow-down" style="display:inline" id="sort_id" title="ID"></span></th>
+                    <th onclick="sort_table(sort_date);">日期 <span class="glyphicon glyphicon-arrow-down" style="display:none" id="sort_date" title="Date"></span></th>
+                    <th onclick="sort_table(sort_sn);">协议号 <span class="glyphicon glyphicon-arrow-down" style="display:none" id="sort_sn" title="SN"></span></th>
+                    <th onclick="sort_table(sort_name);">客户姓名 <span class="glyphicon glyphicon-arrow-down" style="display:none" id="sort_name" title="Name"></span></th>
+                    <th onclick="sort_table(sort_mobile);">电话号码 <span class="glyphicon glyphicon-arrow-down" style="display:none" id="sort_mobile" title="Mobile"></span></th>
+                    <th onclick="sort_table(sort_status);">状态 <span class="glyphicon glyphicon-arrow-down" style="display:none" id="sort_status" title="Status"></span></th>
                     <th></th>
                 </tr>
             </thead>

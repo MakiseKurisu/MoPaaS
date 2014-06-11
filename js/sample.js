@@ -19,12 +19,17 @@ var enum_roomnumber = document.getElementById('enum_roomnumber');
 var enum_location = document.getElementById('enum_location');
 var enum_comment = document.getElementById('enum_comment');
 
-
 var filter_field = document.getElementById('filter_field');
-var filter_condition = document.getElementById('filter_condition');
 var filter_value = document.getElementById('filter_value');
 var filter_switch = document.getElementById('filter_switch');
 var filter_list = document.getElementById('filter_list');
+
+var sort_id = document.getElementById('sort_id');
+var sort_date = document.getElementById('sort_date');
+var sort_sn = document.getElementById('sort_sn');
+var sort_name = document.getElementById('sort_name');
+var sort_mobile = document.getElementById('sort_mobile');
+var sort_status = document.getElementById('sort_status');
 
 var EnumList = new Array();
 
@@ -66,6 +71,50 @@ function selectedValue(select)
 function optionValue(select, i)
 {
 	return i < 0 ? '' : select.options[i].value
+}
+
+function sort_table(column)
+{
+	var column_class = column.className;
+
+	sort_id.style.display = "none";
+	sort_id.className = "glyphicon glyphicon-arrow-down";
+
+	sort_date.style.display = "none";
+	sort_date.className = "glyphicon glyphicon-arrow-down";
+
+	sort_sn.style.display = "none";
+	sort_sn.className = "glyphicon glyphicon-arrow-down";
+
+	sort_name.style.display = "none";
+	sort_name.className = "glyphicon glyphicon-arrow-down";
+
+	sort_mobile.style.display = "none";
+	sort_mobile.className = "glyphicon glyphicon-arrow-down";
+
+	sort_status.style.display = "none";
+	sort_status.className = "glyphicon glyphicon-arrow-down";
+
+	if (column_class == "glyphicon glyphicon-arrow-up")
+	{
+		column.className = "glyphicon glyphicon-arrow-down";
+		ResultList.sort(function(a, b)
+		{
+			return a[column.title] > b[column.title];
+		});
+	}
+	else
+	{
+		column.className = "glyphicon glyphicon-arrow-up";
+		ResultList.sort(function(a, b)
+		{
+			return a[column.title] < b[column.title];
+		});
+	}
+
+	column.style.display = "inline";
+
+	redraw_table();
 }
 
 function create_xmlhttp()
@@ -157,7 +206,6 @@ function init_db()
 			{
 				case 200:
 				{
-					console.log(xmlhttp.responseText);
 					var json = JSON.parse(xmlhttp.responseText);
 		            if (json.Code == 0)
 		            {
@@ -209,7 +257,6 @@ function add_enum(i)
 			{
 				case 200:
 				{
-					console.log(xmlhttp.responseText);
 					var json = JSON.parse(xmlhttp.responseText);
 		            if (json.Code == 0)
 		            {
@@ -260,7 +307,6 @@ function search_enum(i)
 		{
 			case 200:
 			{
-				console.log(xmlhttp.responseText);
 				var json = JSON.parse(xmlhttp.responseText);
 		        if (json.Code == 0)
 		        {
@@ -289,10 +335,6 @@ function search_enum(i)
 
 function show_all()
 {
-	while (table.rows.length > 1)
-	{
-		table.deleteRow(-1);
-	}
 	var status = document.getElementById('status');
 	status.className = 'alert alert-info';
 	status.innerText = '正在发送请求...';
@@ -309,7 +351,6 @@ function show_all()
 		{
 			case 200:
 			{
-				console.log(xmlhttp.responseText);
 				var json = JSON.parse(xmlhttp.responseText);
 		        if (json.Code == 0)
 		        {
@@ -324,15 +365,20 @@ function show_all()
 
 					if ((typeof(DataList) != 'undefined') && DataList)
 					{
+						for (index in DataList)
+						{
+							var THIS = DataList[index];
+							THIS.Name = THIS.Name1 + ' ' + THIS.Name2 + ' ' + THIS.Name3;
+							THIS.StatusText = EnumList[0].List[THIS.Status].Value;
+							THIS.BankText = EnumList[1].List[THIS.Bank].Value;
+							THIS.AgentText = EnumList[2].List[THIS.Agent].Value;
+						}
 						apply_filter();
 					}
 
 					if ((typeof(ResultList) != 'undefined') && ResultList)
 					{
-						for (index in ResultList)
-						{
-							add_record(index);
-						}
+						redraw_table();
 					}
 		        }
 		        break;
@@ -347,26 +393,34 @@ function show_all()
     }
 }
 
-function add_record(i)
+function redraw_table()
 {
-	var row = table.insertRow(-1);
+	while (table.rows.length > 1)
+	{
+		table.deleteRow(-1);
+	}
 
-	var cell = new Array();
-	cell[0] = row.insertCell(0);
-	cell[1] = row.insertCell(1);
-	cell[2] = row.insertCell(2);
-	cell[3] = row.insertCell(3);
-	cell[4] = row.insertCell(4);
-	cell[5] = row.insertCell(5);
-	cell[6] = row.insertCell(6);
+	for (i in ResultList)
+	{
+		var row = table.insertRow(-1);
 
-	cell[0].innerHTML = ResultList[i].ID;
-	cell[1].innerHTML = ResultList[i].Date;
-	cell[2].innerHTML = ResultList[i].SN;
-	cell[3].innerHTML = ResultList[i].Name1 + ' ' + ResultList[i].Name2 + ' ' + ResultList[i].Name3;
-	cell[4].innerHTML = ResultList[i].Mobile;
-	cell[5].innerHTML = optionText(enum_status, ResultList[i].Status);
-	cell[6].innerHTML = '<button type="button" class="btn btn-info" onclick="show_full_result(' + i + ');">详细</button>';
+		var cell = new Array();
+		cell[0] = row.insertCell(0);
+		cell[1] = row.insertCell(1);
+		cell[2] = row.insertCell(2);
+		cell[3] = row.insertCell(3);
+		cell[4] = row.insertCell(4);
+		cell[5] = row.insertCell(5);
+		cell[6] = row.insertCell(6);
+
+		cell[0].innerHTML = ResultList[i].ID;
+		cell[1].innerHTML = ResultList[i].Date;
+		cell[2].innerHTML = ResultList[i].SN;
+		cell[3].innerHTML = ResultList[i].Name;
+		cell[4].innerHTML = ResultList[i].Mobile;
+		cell[5].innerHTML = optionText(enum_status, ResultList[i].Status);
+		cell[6].innerHTML = '<button type="button" class="btn btn-info" onclick="show_full_result(' + i + ');">详细</button>';
+	}
 }
 
 function add_to_database()
@@ -384,7 +438,6 @@ function add_to_database()
 			{
 				case 200:
 				{
-					console.log(xmlhttp.responseText);
 					var json = JSON.parse(xmlhttp.responseText);
 		            if (json.Code == 0)
 		            {
@@ -492,7 +545,6 @@ function add_to_database()
 
 	record.data.Comment = enum_comment.value;
 
-	console.log(record);
     xmlhttp.send(JSON.stringify(record));
 }
 
@@ -564,19 +616,40 @@ function show_full_result(i)
 	$('#addModal').modal('show')
 }
 
+function clean_filter()
+{
+	filter_list.innerHTML = '';
+	FilterList = new Array();
+	show_all();
+}
+
 function add_filter()
 {
+	if (filter_value.value == '')
+	{
+		var status = document.getElementById('status');
+		status.className = 'alert alert-danger';
+		status.innerText = '查询内容不能为空';
+		return;
+	}
+
 	var index = FilterList.length;
 	FilterList[index] = {};
 	FilterList[index].Field = selectedValue(filter_field);
-	FilterList[index].Condition = selectedValue(filter_condition);
 	FilterList[index].Value = filter_value.value;
 	FilterList[index].Show = selectedValue(filter_switch);
 
 	var new_filter = '';
-	new_filter += '<div class="col-md-3 alert alert-info alert-dismissable">';
+	if (FilterList[index].Show == 1)
+	{
+		new_filter += '<div class="col-md-3 alert alert-success alert-dismissable">';
+	}
+	else
+	{
+		new_filter += '<div class="col-md-3 alert alert-danger alert-dismissable">';
+	}
 	new_filter += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true" onclick="remove_filter(' + index + ');">&times;</button>';
-	new_filter += '当' + selectedText(filter_field) + selectedText(filter_condition) + filter_value.value + '时' + selectedText(filter_switch);
+	new_filter += '当' + selectedText(filter_field) + '包含' + filter_value.value + '时' + selectedText(filter_switch);
 	new_filter += '</div>';
 	filter_list.innerHTML += new_filter;
 
@@ -597,59 +670,16 @@ function apply_filter()
 		for(j in ResultList)
 		{
 			var value = ResultList[j][FilterList[i].Field];
-			switch (FilterList[i].Condition)
+			if (value.search(FilterList[i].Value) >= 0)
 			{
-				case 'GTR':
+				if (FilterList[i].Show != 1)
 				{
-					if (value > FilterList[i].Value)
-					{
-						if (!FilterList[i].Show)
-						{
-							delete ResultList[j];
-						}
-					}
-					else if (FilterList[i].Show)
-					{
-						delete ResultList[j];
-					}
-					break;
+					delete ResultList[j];
 				}
-				case 'EQU':
-				{
-					if (value == FilterList[i].Value)
-					{
-						if (!FilterList[i].Show)
-						{
-							delete ResultList[j];
-						}
-					}
-					else if (FilterList[i].Show)
-					{
-						delete ResultList[j];
-					}
-					break;
-				}
-				case 'LSS':
-				{
-					if (value < FilterList[i].Value)
-					{
-						if (!FilterList[i].Show)
-						{
-							delete ResultList[j];
-						}
-					}
-					else if (FilterList[i].Show)
-					{
-						delete ResultList[j];
-					}
-					break;
-				}
-				default:
-				{
-					// invalid condition
-					j = ResultList.length;
-					break;
-				}
+			}
+			else if (FilterList[i].Show == 1)
+			{
+				delete ResultList[j];
 			}
 		}
 	}

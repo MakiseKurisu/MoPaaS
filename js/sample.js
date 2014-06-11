@@ -126,9 +126,9 @@ function refresh_option()
 function add_option(name, object)
 {
 	var select = document.getElementById(name);
-	while (select.length > 1)
+	while (select.length)
 	{
-		select.remove(1);
+		select.remove(0);
 	}
 
 	if ((typeof(object.List) != 'undefined') && object.List)
@@ -166,10 +166,9 @@ function init_db()
 		            }
 		            else
 		            {
-		            	clean_form();
-						show_all();
 		            	status.className = 'alert alert-success';
 						status.innerText = '数据库已成功初始化';
+						location.reload();
 		            }
 		            break;
 		        }

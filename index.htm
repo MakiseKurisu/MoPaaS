@@ -58,7 +58,7 @@
 	    		当
 				<select class="form-control" id="filter_field">
 					<option value="Name">客户姓名</option>
-					<option value="Mobile">电话号码</option>
+					<option value="Mobile">移动电话</option>
 					<option value="PersonalID">身份证号</option>
 					<option value="StatusText">状态</option>
 					<option value="Date">日期</option>
@@ -92,11 +92,11 @@
             <thead>
                 <tr>
                     <th onclick="sort_table(sort_id);">套数 <span class="glyphicon glyphicon-arrow-down" style="display:inline" id="sort_id" title="ID"></span></th>
-                    <th onclick="sort_table(sort_date);">日期 <span class="glyphicon glyphicon-arrow-down" style="display:none" id="sort_date" title="Date"></span></th>
-                    <th onclick="sort_table(sort_sn);">协议号 <span class="glyphicon glyphicon-arrow-down" style="display:none" id="sort_sn" title="SN"></span></th>
-                    <th onclick="sort_table(sort_name);">客户姓名 <span class="glyphicon glyphicon-arrow-down" style="display:none" id="sort_name" title="Name"></span></th>
-                    <th onclick="sort_table(sort_mobile);">电话号码 <span class="glyphicon glyphicon-arrow-down" style="display:none" id="sort_mobile" title="Mobile"></span></th>
-                    <th onclick="sort_table(sort_status);">状态 <span class="glyphicon glyphicon-arrow-down" style="display:none" id="sort_status" title="Status"></span></th>
+                    <th onclick="sort_table(sort_date);">日期 <span class="glyphicon glyphicon-arrow-up" style="display:none" id="sort_date" title="Date"></span></th>
+                    <th onclick="sort_table(sort_sn);">协议号 <span class="glyphicon glyphicon-arrow-up" style="display:none" id="sort_sn" title="SN"></span></th>
+                    <th onclick="sort_table(sort_name);">客户姓名 <span class="glyphicon glyphicon-arrow-up" style="display:none" id="sort_name" title="Name"></span></th>
+                    <th onclick="sort_table(sort_mobile);">移动电话 <span class="glyphicon glyphicon-arrow-up" style="display:none" id="sort_mobile" title="Mobile"></span></th>
+                    <th onclick="sort_table(sort_status);">状态 <span class="glyphicon glyphicon-arrow-up" style="display:none" id="sort_status" title="Status"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -155,6 +155,10 @@
 	            	    	<label>协议号</label>
 	            	    	<input type="text" class="form-control" id="enum_sn">
 						</div>
+						<div class="col-md-4">
+							<label>收据号码</label>
+							<input type="text" class="form-control" id="enum_receipt">
+						</div>
 					</p>
 
 					</br>
@@ -182,7 +186,7 @@
 
 					<p>
 						<div class="col-md-4">
-							<label>电话号码</label>
+							<label>移动电话</label>
 							<input type="text" class="form-control" id="enum_mobile">
 						</div>
 					</p>
@@ -214,10 +218,6 @@
 						<div class="col-md-4">
 							<label>卡号</label>
 							<input type="text" class="form-control" id="enum_cardnumber">
-						</div>
-						<div class="col-md-4">
-							<label>收据号码</label>
-							<input type="text" class="form-control" id="enum_receipt">
 						</div>
 					</p>
 

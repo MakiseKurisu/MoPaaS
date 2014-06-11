@@ -78,22 +78,22 @@ function sort_table(column)
 	var column_class = column.className;
 
 	sort_id.style.display = "none";
-	sort_id.className = "glyphicon glyphicon-arrow-down";
+	sort_id.className = "glyphicon glyphicon-arrow-up";
 
 	sort_date.style.display = "none";
-	sort_date.className = "glyphicon glyphicon-arrow-down";
+	sort_date.className = "glyphicon glyphicon-arrow-up";
 
 	sort_sn.style.display = "none";
-	sort_sn.className = "glyphicon glyphicon-arrow-down";
+	sort_sn.className = "glyphicon glyphicon-arrow-up";
 
 	sort_name.style.display = "none";
-	sort_name.className = "glyphicon glyphicon-arrow-down";
+	sort_name.className = "glyphicon glyphicon-arrow-up";
 
 	sort_mobile.style.display = "none";
-	sort_mobile.className = "glyphicon glyphicon-arrow-down";
+	sort_mobile.className = "glyphicon glyphicon-arrow-up";
 
 	sort_status.style.display = "none";
-	sort_status.className = "glyphicon glyphicon-arrow-down";
+	sort_status.className = "glyphicon glyphicon-arrow-up";
 
 	if (column_class == "glyphicon glyphicon-arrow-up")
 	{
@@ -368,10 +368,13 @@ function show_all()
 						for (index in DataList)
 						{
 							var THIS = DataList[index];
-							THIS.Name = THIS.Name1 + ' ' + THIS.Name2 + ' ' + THIS.Name3;
-							THIS.StatusText = EnumList[0].List[THIS.Status].Value;
-							THIS.BankText = EnumList[1].List[THIS.Bank].Value;
-							THIS.AgentText = EnumList[2].List[THIS.Agent].Value;
+							if ((typeof(THIS) != 'undefined') && THIS)
+							{
+								THIS.Name = THIS.Name1 + ' ' + THIS.Name2 + ' ' + THIS.Name3;
+								THIS.StatusText = EnumList[0].List[THIS.Status].Value;
+								THIS.BankText = EnumList[1].List[THIS.Bank].Value;
+								THIS.AgentText = EnumList[2].List[THIS.Agent].Value;
+							}
 						}
 						apply_filter();
 					}

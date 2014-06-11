@@ -6,6 +6,7 @@ var enum_name1 = document.getElementById('enum_name1');
 var enum_name2 = document.getElementById('enum_name2');
 var enum_name3 = document.getElementById('enum_name3');
 var enum_mobile = document.getElementById('enum_mobile');
+var enum_phone = document.getElementById('enum_phone');
 var enum_personalid = document.getElementById('enum_personalid');
 var enum_status = document.getElementById('enum_status');
 var enum_bank = document.getElementById('enum_bank');
@@ -490,13 +491,14 @@ function add_to_database()
 	record.data.Name2 = enum_name2.value;
 	record.data.Name3 = enum_name3.value;
 
-	if (enum_mobile.value == '')
+	if (enum_mobile.value == '' && enum_phone.value)
 	{
 		status.className = 'alert alert-danger';
 		status.innerText = '电话号码不能为空';
 		return;
 	}
 	record.data.Mobile = enum_mobile.value;
+	record.data.Phone = enum_phone.value;
 
 	if (enum_personalid.value == '')
 	{
@@ -562,6 +564,7 @@ function clean_form()
 	enum_name3.value = '';
 
 	enum_mobile.value = '';
+	enum_phone.value = '';
 
 	enum_personalid.value = '';
 
@@ -595,6 +598,7 @@ function show_full_result(i)
 	enum_name3.value = ResultList[i].Name3;
 
 	enum_mobile.value = ResultList[i].Mobile;
+	enum_phone.value = ResultList[i].Phone;
 
 	enum_personalid.value = ResultList[i].PersonalID;
 

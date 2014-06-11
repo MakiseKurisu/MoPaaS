@@ -44,6 +44,7 @@
 		Name2 varchar(32),
 		Name3 varchar(32),
 		Mobile bigint,
+		Phone bigint,
 		PersonalID bigint,
 		Status int,
 		Bank int,

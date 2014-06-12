@@ -22,6 +22,26 @@ var enum_roomnumber = document.getElementById('enum_roomnumber');
 var enum_location = document.getElementById('enum_location');
 var enum_comment = document.getElementById('enum_comment');
 
+var form_date = document.getElementById('form_date');
+var form_sn = document.getElementById('form_sn');
+var form_name1 = document.getElementById('form_name1');
+var form_name2 = document.getElementById('form_name2');
+var form_name3 = document.getElementById('form_name3');
+var form_mobile = document.getElementById('form_mobile');
+var form_phone = document.getElementById('form_phone');
+var form_personalid = document.getElementById('form_personalid');
+var form_status = document.getElementById('form_status');
+var form_bank = document.getElementById('form_bank');
+var form_cardnumber1 = document.getElementById('form_cardnumber1');
+var form_cardnumber2 = document.getElementById('form_cardnumber2');
+var form_receipt = document.getElementById('form_receipt');
+var form_agent = document.getElementById('form_agent');
+var form_salesperson1 = document.getElementById('form_salesperson1');
+var form_salesperson2 = document.getElementById('form_salesperson2');
+var form_salesperson3 = document.getElementById('form_salesperson3');
+var form_roomnumber = document.getElementById('form_roomnumber');
+var form_location = document.getElementById('form_location');
+
 var filter_field = document.getElementById('filter_field');
 var filter_value = document.getElementById('filter_value');
 var filter_switch = document.getElementById('filter_switch');
@@ -495,89 +515,136 @@ function save_to_database()
 		record.data.ID = enum_id.value;
 	}
 
+	clean_error_status();
+	var has_error = false;
+
 	if (enum_date.value == '')
 	{
-		status.className = 'alert alert-danger';
-		status.innerText = '日期不能为空';
-		return;
+		form_date.className = "col-md-4 has-error"
+		has_error = true;
 	}
-	record.data.Date = enum_date.value;
+	else
+	{
+		record.data.Date = enum_date.value;
+	}
 
 	if (enum_sn.value == '')
 	{
-		status.className = 'alert alert-danger';
-		status.innerText = '协议号不能为空';
-		return;
+		form_sn.className = "col-md-4 has-error"
+		has_error = true;
 	}
-	record.data.SN = enum_sn.value;
-
-	record.data.Name1 = enum_name1.value;
-	record.data.Name2 = enum_name2.value;
-	record.data.Name3 = enum_name3.value;
-
-	if (enum_mobile.value == '' && enum_phone.value == '' )
+	else
 	{
-		status.className = 'alert alert-danger';
-		status.innerText = '电话号码不能为空';
-		return;
+		record.data.SN = enum_sn.value;
 	}
-	record.data.Mobile = enum_mobile.value;
-	record.data.Phone = enum_phone.value;
 
-	if (enum_personalid.value == '')
+	if (enum_name1.value == '')
 	{
-		status.className = 'alert alert-danger';
-		status.innerText = '身份证号不能为空';
-		return;
+		form_name1.className = "col-md-4 has-error"
+		has_error = true;
 	}
-	record.data.PersonalID = enum_personalid.value;
+	else
+	{
+		record.data.Name1 = enum_name1.value;
+		record.data.Name2 = enum_name2.value;
+		record.data.Name3 = enum_name3.value;
+	}
+
+	if ((enum_mobile.value == '' && enum_phone.value == '') || (enum_mobile.value.length != 11))
+	{
+		form_mobile.className = "col-md-4 has-error"
+		has_error = true;
+	}
+	else
+	{
+		record.data.Mobile = enum_mobile.value;
+		record.data.Phone = enum_phone.value;
+	}
+
+	if ((enum_personalid.value == '') || (enum_personalid.value.length != 18))
+	{
+		form_personalid.className = "col-md-4 has-error"
+		has_error = true;
+	}
+	else
+	{
+		record.data.PersonalID = enum_personalid.value;
+	}
 
 	record.data.Status = enum_status.selectedIndex;
 	record.data.Bank = enum_bank.selectedIndex;
 
-	if (enum_cardnumber1.value == '' || enum_cardnumber2.value == '')
+	if ((enum_cardnumber1.value == '') || (enum_cardnumber1.value.length != 6))
 	{
-		status.className = 'alert alert-danger';
-		status.innerText = '卡号不能为空';
-		return;
+		form_cardnumber1.className = "col-md-4 has-error"
+		has_error = true;
 	}
-	record.data.CardNumber1 = enum_cardnumber1.value;
-	record.data.CardNumber2 = enum_cardnumber2.value;
+	else
+	{
+		record.data.CardNumber1 = enum_cardnumber1.value;
+	}
+
+	if ((enum_cardnumber2.value == '') || (enum_cardnumber2.value.length != 4))
+	{
+		form_cardnumber2.className = "col-md-4 has-error"
+		has_error = true;
+	}
+	else
+	{
+		record.data.CardNumber2 = enum_cardnumber2.value;
+	}
 
 	if (enum_receipt.value == '')
 	{
-		status.className = 'alert alert-danger';
-		status.innerText = '收据号码不能为空';
-		return;
+		form_receipt.className = "col-md-4 has-error"
+		has_error = true;
 	}
-	record.data.Receipt = enum_receipt.value;
+	else
+	{
+		record.data.Receipt = enum_receipt.value;
+	}
 
 	record.data.Agent = enum_agent.selectedIndex;
-	record.data.Salesperson1 = enum_salesperson1.value;
-	record.data.Salesperson2 = enum_salesperson2.value;
-	record.data.Salesperson3 = enum_salesperson3.value;
+
+
+	if (enum_salesperson1.value == '')
+	{
+		form_salesperson1.className = "col-md-4 has-error"
+		has_error = true;
+	}
+	else
+	{
+		record.data.Salesperson1 = enum_salesperson1.value;
+		record.data.Salesperson2 = enum_salesperson2.value;
+		record.data.Salesperson3 = enum_salesperson3.value;
+	}
 
 	if (enum_roomnumber.value == '')
 	{
-		status.className = 'alert alert-danger';
-		status.innerText = '选购房源不能为空';
-		return;
+		form_roomnumber.className = "col-md-4 has-error"
+		has_error = true;
 	}
-	record.data.RoomNumber = enum_roomnumber.value;
+	else
+	{
+		record.data.RoomNumber = enum_roomnumber.value;
+	}
 
 	if (enum_location.value == '')
 	{
-		status.className = 'alert alert-danger';
-		status.innerText = '来源区域不能为空';
-		return;
+		form_location.className = "col-md-4 has-error"
+		has_error = true;
 	}
-	record.data.Location = enum_location.value;
+	else
+	{
+		record.data.Location = enum_location.value;
+	}
 
 	record.data.Comment = enum_comment.value;
 
-	console.log(record);
-
-    xmlhttp.send(JSON.stringify(record));
+	if (has_error == false)
+    {
+    	xmlhttp.send(JSON.stringify(record));
+    }
 }
 
 function clean_form()
@@ -614,6 +681,31 @@ function clean_form()
 	enum_location.value = '';
 	
 	enum_comment.value = '';
+
+	clean_error_status();
+}
+
+function clean_error_status()
+{
+	form_date.className = "col-md-4";
+	form_sn.className = "col-md-4";
+	form_name1.className = "col-md-4";
+	form_name2.className = "col-md-4";
+	form_name3.className = "col-md-4";
+	form_mobile.className = "col-md-4";
+	form_phone.className = "col-md-4";
+	form_personalid.className = "col-md-4";
+	form_status.className = "col-md-4";
+	form_bank.className = "col-md-4";
+	form_cardnumber1.className = "col-md-4";
+	form_cardnumber2.className = "col-md-4";
+	form_receipt.className = "col-md-4";
+	form_agent.className = "col-md-4";
+	form_salesperson1.className = "col-md-4";
+	form_salesperson2.className = "col-md-4";
+	form_salesperson3.className = "col-md-4";
+	form_roomnumber.className = "col-md-4";
+	form_location.className = "col-md-4";
 }
 
 function show_full_result(i)

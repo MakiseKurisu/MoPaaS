@@ -39,7 +39,8 @@
 		if (!$GLOBALS['database']->query($sql))
 		{
 			$return['Code'] = 0;
-			$return['Reason'] = '无法删除数据库: ' . $GLOBALS['database']->error()[2];
+			$error = $GLOBALS['database']->error();
+			$return['Reason'] = "无法删除数据库: {$error[2]}";
 			echo(json_encode($return));
 			return;
 		}
@@ -79,7 +80,8 @@
 		if (!$GLOBALS['database']->query($sql))
 		{
 			$return['Code'] = 0;
-			$return['Reason'] = '无法创建主表: ' . $GLOBALS['database']->error()[2];
+			$error = $GLOBALS['database']->error();
+			$return['Reason'] = "无法创建主表: {$error[2]}";
 			echo(json_encode($return));
 			return;
 		}
@@ -97,7 +99,8 @@
 		if (!$GLOBALS['database']->query($sql))
 		{
 			$return['Code'] = 0;
-			$return['Reason'] = '无法创建Status表: ' . $GLOBALS['database']->error()[2];
+			$error = $GLOBALS['database']->error();
+			$return['Reason'] = "无法创建Status表: {$error[2]}";
 			echo(json_encode($return));
 			return;
 		}
@@ -115,7 +118,8 @@
 		if (!$GLOBALS['database']->query($sql))
 		{
 			$return['Code'] = 0;
-			$return['Reason'] = '无法创建Bank表: ' . $GLOBALS['database']->error()[2];
+			$error = $GLOBALS['database']->error();
+			$return['Reason'] = "无法创建Bank表: {$error[2]}";
 			echo(json_encode($return));
 			return;
 		}
@@ -133,7 +137,8 @@
 		if (!$GLOBALS['database']->query($sql))
 		{
 			$return['Code'] = 0;
-			$return['Reason'] = '无法创建Agent表: ' . $GLOBALS['database']->error()[2];
+			$error = $GLOBALS['database']->error();
+			$return['Reason'] = "无法创建Agent表: {$error[2]}";
 			echo(json_encode($return));
 			return;
 		}

@@ -15,7 +15,8 @@
 		}
 		if (!$return['Result'])
 		{
-			$return['Reason'] = ($GLOBALS['database']->error())[2];
+			$error = $GLOBALS['database']->error();
+			$return['Reason'] = $error[2];
 		}
 		$return['Code'] = 1;
 		echo(json_encode($return));

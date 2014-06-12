@@ -7,7 +7,7 @@
 		{
 			$id = $json->{'data'}->{'ID'};
 			unset($json->{'data'}->{'ID'});
-			$return['Result'] = $GLOBALS['database']->update($json->{'table'}, (array) $json->{'data'}, ["ID" => $id]);
+			$return['Result'] = $GLOBALS['database']->update($json->{'table'}, (array) $json->{'data'}, array("ID" => $id));
 		}
 		else
 		{

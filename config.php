@@ -55,7 +55,7 @@
 
 	function new_medoo()
 	{
-		return new medoo([
+		return new medoo(array(
 			'database_type' => 'mysql',
 			'server' => $GLOBALS['DB_HOST'],
 			'port' => $GLOBALS['DB_PORT'],
@@ -64,6 +64,6 @@
 			'database_name' => $GLOBALS['DB_NAME'],
 		 
 			'charset' => 'utf8',
-		]);
+		));
 	}
 ?>

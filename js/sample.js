@@ -518,9 +518,9 @@ function save_to_database()
 	clean_error_status();
 	var has_error = false;
 
-	if (enum_date.value == '')
+	if ((enum_date.value == '') || (enum_date.value.length != 10))
 	{
-		form_date.className = "col-md-4 has-error"
+		form_date.style.background = "#FF8080"
 		has_error = true;
 	}
 	else
@@ -530,7 +530,7 @@ function save_to_database()
 
 	if (enum_sn.value == '')
 	{
-		form_sn.className = "col-md-4 has-error"
+		form_sn.style.background = "#FF8080"
 		has_error = true;
 	}
 	else
@@ -540,7 +540,7 @@ function save_to_database()
 
 	if (enum_name1.value == '')
 	{
-		form_name1.className = "col-md-4 has-error"
+		form_name1.style.background = "#FF8080"
 		has_error = true;
 	}
 	else
@@ -552,7 +552,7 @@ function save_to_database()
 
 	if ((enum_mobile.value == '' && enum_phone.value == '') || (enum_mobile.value.length != 11))
 	{
-		form_mobile.className = "col-md-4 has-error"
+		form_mobile.style.background = "#FF8080"
 		has_error = true;
 	}
 	else
@@ -563,7 +563,7 @@ function save_to_database()
 
 	if ((enum_personalid.value == '') || (enum_personalid.value.length != 18))
 	{
-		form_personalid.className = "col-md-4 has-error"
+		form_personalid.style.background = "#FF8080"
 		has_error = true;
 	}
 	else
@@ -576,7 +576,7 @@ function save_to_database()
 
 	if ((enum_cardnumber1.value == '') || (enum_cardnumber1.value.length != 6))
 	{
-		form_cardnumber1.className = "col-md-4 has-error"
+		form_cardnumber1.style.background = "#FF8080"
 		has_error = true;
 	}
 	else
@@ -586,7 +586,7 @@ function save_to_database()
 
 	if ((enum_cardnumber2.value == '') || (enum_cardnumber2.value.length != 4))
 	{
-		form_cardnumber2.className = "col-md-4 has-error"
+		form_cardnumber2.style.background = "#FF8080"
 		has_error = true;
 	}
 	else
@@ -596,7 +596,7 @@ function save_to_database()
 
 	if (enum_receipt.value == '')
 	{
-		form_receipt.className = "col-md-4 has-error"
+		form_receipt.style.background = "#FF8080"
 		has_error = true;
 	}
 	else
@@ -609,7 +609,7 @@ function save_to_database()
 
 	if (enum_salesperson1.value == '')
 	{
-		form_salesperson1.className = "col-md-4 has-error"
+		form_salesperson1.style.background = "#FF8080"
 		has_error = true;
 	}
 	else
@@ -621,7 +621,7 @@ function save_to_database()
 
 	if (enum_roomnumber.value == '')
 	{
-		form_roomnumber.className = "col-md-4 has-error"
+		form_roomnumber.style.background = "#FF8080"
 		has_error = true;
 	}
 	else
@@ -631,7 +631,7 @@ function save_to_database()
 
 	if (enum_location.value == '')
 	{
-		form_location.className = "col-md-4 has-error"
+		form_location.style.background = "#FF8080"
 		has_error = true;
 	}
 	else
@@ -687,25 +687,25 @@ function clean_form()
 
 function clean_error_status()
 {
-	form_date.className = "col-md-4";
-	form_sn.className = "col-md-4";
-	form_name1.className = "col-md-4";
-	form_name2.className = "col-md-4";
-	form_name3.className = "col-md-4";
-	form_mobile.className = "col-md-4";
-	form_phone.className = "col-md-4";
-	form_personalid.className = "col-md-4";
-	form_status.className = "col-md-4";
-	form_bank.className = "col-md-4";
-	form_cardnumber1.className = "col-md-4";
-	form_cardnumber2.className = "col-md-4";
-	form_receipt.className = "col-md-4";
-	form_agent.className = "col-md-4";
-	form_salesperson1.className = "col-md-4";
-	form_salesperson2.className = "col-md-4";
-	form_salesperson3.className = "col-md-4";
-	form_roomnumber.className = "col-md-4";
-	form_location.className = "col-md-4";
+	form_date.style.background = "";
+	form_sn.style.background = "";
+	form_name1.style.background = "";
+	form_name2.style.background = "";
+	form_name3.style.background = "";
+	form_mobile.style.background = "";
+	form_phone.style.background = "";
+	form_personalid.style.background = "";
+	form_status.style.background = "";
+	form_bank.style.background = "";
+	form_cardnumber1.style.background = "";
+	form_cardnumber2.style.background = "";
+	form_receipt.style.background = "";
+	form_agent.style.background = "";
+	form_salesperson1.style.background = "";
+	form_salesperson2.style.background = "";
+	form_salesperson3.style.background = "";
+	form_roomnumber.style.background = "";
+	form_location.style.background = "";
 }
 
 function show_full_result(i)

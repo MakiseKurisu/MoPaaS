@@ -32,11 +32,10 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="#" data-toggle="modal" data-target="#addModal">添加</a></li>
-
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">管理 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
+							<li><a href="#" data-toggle="modal" data-target="#manageModal">安装</a></li>
 							<li><a href="#" data-toggle="modal" data-target="#manageModal">常用</a></li>
 							<li class="divider"></li>
 							<li><a href="###">注销</a></li>
@@ -53,35 +52,40 @@
 	    </p>
 
     	<p>
-	    	<form class="form-inline" role="form">
-	    		当
-				<select class="form-control" id="filter_field">
-					<option value="Name">客户姓名</option>
-					<option value="Mobile">移动电话</option>
-					<option value="PersonalID">身份证号</option>
-					<option value="StatusText">状态</option>
-					<option value="Date">日期</option>
-					<option value="SN">协议号</option>
-					<option value="Receipt">收据号码</option>
-					<option value="BankText">银行</option>
-					<option value="CardNumber">卡号</option>
-					<option value="AgentText">代理公司</option>
-					<option value="Salesperson">销售员</option>
-					<option value="RoomNumber">选购房源</option>
-					<option value="Location">来源区域</option>
-					<option value="Comment">备注</option>
-				</select>
-				包含
-				<input type="text" class="form-control" id="filter_value">
-				时
-				<select class="form-control" id="filter_switch">
-					<option value="1">显示</option>
-					<option value="0">不显示</option>
-				</select>
+	    	<div class="col-md-9">
+		    	<form class="form-inline" role="form">
+		    		当
+					<select class="form-control" id="filter_field">
+						<option value="Name">客户姓名</option>
+						<option value="Mobile">移动电话</option>
+						<option value="PersonalID">身份证号</option>
+						<option value="StatusText">状态</option>
+						<option value="Date">日期</option>
+						<option value="SN">协议号</option>
+						<option value="Receipt">收据号码</option>
+						<option value="BankText">银行</option>
+						<option value="CardNumber">卡号</option>
+						<option value="AgentText">代理公司</option>
+						<option value="Salesperson">销售员</option>
+						<option value="RoomNumber">选购房源</option>
+						<option value="Location">来源区域</option>
+						<option value="Comment">备注</option>
+					</select>
+					包含
+					<input type="text" class="form-control" id="filter_value">
+					时
+					<select class="form-control" id="filter_switch">
+						<option value="1">显示</option>
+						<option value="0">不显示</option>
+					</select>
 
-				<a type="button" class="btn btn-primary" onclick="add_filter();">添加过滤器</a>
-				<a type="button" class="btn btn-danger" onclick="clean_filter();">清除过滤器</a>
-			</form>
+					<a type="button" class="btn btn-primary" onclick="add_filter();">添加过滤器</a>
+					<a type="button" class="btn btn-danger" onclick="clean_filter();">清除过滤器</a>
+				</form>
+			</div>
+	    	<div class="col-md-3">
+				<a type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addModal">添加新数据</a>
+			</div>
 		</p>
 
 		<div id="filter_list">

@@ -41,14 +41,11 @@
 		mysqli_query($database, "set names 'utf8'");
 
 		// Create the database
-		if (!mysqli_query($database, "CREATE DATABASE {$GLOBALS['DB_NAME']}"))
+		if (!mysqli_query($database, "CREATE DATABASE IF NOT EXISTS {$GLOBALS['DB_NAME']}"))
 		{
-			if (mysqli_errno($database) != 1007)
-			{
-				$return['Code'] = 0;
-				$return['Reason'] = '无法创建数据库: ' . mysqli_error($database);
-				die(json_encode($return));
-			}
+			$return['Code'] = 0;
+			$return['Reason'] = '无法创建数据库: ' . mysqli_error($database);
+			die(json_encode($return));
 		}
 
 		// Close the connection
